@@ -16,3 +16,11 @@ URL: https://github.com/google/google-api-php-client/releases
 The easiest way to install is with composer.
 
 `composer require bronhy/google-my-business-php-client`
+
+## Detailed error responses
+
+To enable more detailed error messages in responses, such as absent required fields, add the following additional header to your requests:
+
+`X-GOOG-API-FORMAT-VERSION: 2`
+
+For additional information on error message responses, see the ErrorCode, ErrorDetail, InternalError, and ValidationError pages in the [Shared.Types](https://developers.google.com/my-business/reference/rest/Shared.Types/ErrorCode) section.
