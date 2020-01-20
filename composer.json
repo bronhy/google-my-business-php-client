@@ -1,0 +1,27 @@
+{
+  "name": "bronhy/google-my-business-php-client",
+  "type": "library",
+  "description": "Google My Business",
+  "keywords": [
+    "google my business", "mybusiness", "gmb"
+  ],
+  "homepage": "https://github.com/bronhy/google-my-business-php-client",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Google"
+    }
+  ],
+  "support": {
+    "docs": "https://developers.google.com/my-business/content/support"
+  },
+  "require": {
+    "php": ">=5.4",
+    "google/apiclient": ">=2.0"
+  },
+  "autoload": {
+    "files": [
+      "MyBusiness.php"
+    ]
+  }
+}
