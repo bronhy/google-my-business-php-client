@@ -386,6 +386,20 @@ class Google_Service_MyBusiness extends Google_Service
                   'required' => true,
                 ),
               ),
+            ),'getFoodMenus' => array(
+              'path' => 'v4/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'readMask' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
             ),'getGoogleUpdated' => array(
               'path' => 'v4/{+name}:googleUpdated',
               'httpMethod' => 'GET',
@@ -476,6 +490,20 @@ class Google_Service_MyBusiness extends Google_Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ),
+              ),
+            ),'updateFoodMenus' => array(
+              'path' => 'v4/{+name}',
+              'httpMethod' => 'PATCH',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'updateMask' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
               ),
             ),'updateServiceList' => array(
@@ -1173,12 +1201,11 @@ class Google_Service_MyBusiness_Accounts_Resource extends Google_Service_Resourc
 {
 
   /**
-   * Creates an account with the specified name and type under the given parent.
-   *
-   *  Personal accounts and Organizations cannot be created.   User Groups cannot
-   * be created with a Personal account as primary owner.   Location Groups cannot
+   * Creates an account with the specified name and type under the given parent. -
+   * Personal accounts and Organizations cannot be created. - User Groups cannot
+   * be created with a Personal account as primary owner. - Location Groups cannot
    * be created with a primary owner of a Personal account if the Personal account
-   * is in an Organization.   Location Groups cannot own Location Groups.
+   * is in an Organization. - Location Groups cannot own Location Groups.
    * (accounts.create)
    *
    * @param Google_Account $postBody
@@ -1279,10 +1306,8 @@ class Google_Service_MyBusiness_Accounts_Resource extends Google_Service_Resourc
    * @opt_param string filter A filter constraining the accounts to return. The
    * response includes only entries that match the filter. If `filter` is empty,
    * then no constraints are applied and all accounts (paginated) are retrieved
-   * for the requested account.
-   *
-   * For example, a request with the filter `type=USER_GROUP` will only return
-   * user groups.
+   * for the requested account. For example, a request with the filter
+   * `type=USER_GROUP` will only return user groups.
    * @return Google_Service_MyBusiness_ListAccountsResponse
    */
   public function listAccounts($optParams = array())
@@ -1297,11 +1322,9 @@ class Google_Service_MyBusiness_Accounts_Resource extends Google_Service_Resourc
    * account. Recommendations are provided for personal accounts and location
    * groups only, requests for all other account types will result in an error.
    * The recommendations for location groups are based on the locations in that
-   * group.
-   *
-   * The recommendations for personal accounts are based on all of the locations
-   * that the user has access to on Google My Business (which includes locations
-   * they can access through location groups), and is a superset of all
+   * group. The recommendations for personal accounts are based on all of the
+   * locations that the user has access to on Google My Business (which includes
+   * locations they can access through location groups), and is a superset of all
    * recommendations generated for the user.
    * (accounts.listRecommendGoogleLocations)
    *
@@ -1324,7 +1347,7 @@ class Google_Service_MyBusiness_Accounts_Resource extends Google_Service_Resourc
 
   /**
    * Updates the specified business account. Personal accounts cannot be updated
-   * using this method. Note: The only editable field for an account is
+   * using this method. *Note:* The only editable field for an account is
    * `account_name`. Any other fields passed in (such as `type` or `role`) are
    * ignored. (accounts.update)
    *
@@ -1345,12 +1368,9 @@ class Google_Service_MyBusiness_Accounts_Resource extends Google_Service_Resourc
 
   /**
    * Sets the pubsub notification settings for the account informing My Business
-   * which topic to send pubsub notifications for:
-   *
-   * - New reviews for locations administered by the account. - Updated reviews
-   * for locations administered by the account. - New `GoogleUpdates` for
-   * locations administered by the account.
-   *
+   * which topic to send pubsub notifications for: - New reviews for locations
+   * administered by the account. - Updated reviews for locations administered by
+   * the account. - New `GoogleUpdates` for locations administered by the account.
    * An account will only have one notification settings resource, and only one
    * pubsub topic can be set. (accounts.updateNotifications)
    *
@@ -1551,7 +1571,7 @@ class Google_Service_MyBusiness_AccountsLocations_Resource extends Google_Servic
 
   /**
    * Returns the paginated list of reviews for all specified locations. This
-   * operation is only valid if the specified locations are verified. Note:
+   * operation is only valid if the specified locations are verified. *Note:*
    * Reviews are limited to a batch size of 200 `location_names` per call.
    * (locations.batchGetReviews)
    *
@@ -1607,13 +1627,10 @@ class Google_Service_MyBusiness_AccountsLocations_Resource extends Google_Servic
   }
 
   /**
-   * Deletes a location.
-   *
-   * Note: If this location cannot be deleted using the API as marked in the
-   * LocationState, use the [Google My
-   * Business](https://business.google.com/manage/) website.
-   *
-   * Returns `NOT_FOUND` if the location does not exist. (locations.delete)
+   * Deletes a location. *Note:* If this location cannot be deleted using the API
+   * as marked in the LocationState, use the [Google My
+   * Business](https://business.google.com/manage/) website. Returns `NOT_FOUND`
+   * if the location does not exist. (locations.delete)
    *
    * @param string $name The name of the location to delete.
    * @param array $optParams Optional parameters.
@@ -1675,6 +1692,27 @@ class Google_Service_MyBusiness_AccountsLocations_Resource extends Google_Servic
   }
 
   /**
+   * Returns the food menus of a specific location. Only call this if
+   * location.location_state.can_have_food_menu is true. (locations.getFoodMenus)
+   *
+   * @param string $name Required. Google identifier for this location in the
+   * form: `accounts/{account_id}/locations/{location_id}/foodMenus`
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string readMask Optional. The specific fields to return. If no
+   * mask is specified, then it returns the full FoodMenu (same as "*"). Repeated
+   * field items can not be individually specified. For example: "name" and
+   * "menus" are valid masks, while "menus.sections" is invalid.
+   * @return Google_Service_MyBusiness_FoodMenus
+   */
+  public function getFoodMenus($name, $optParams = array())
+  {
+    $params = array('name' => $name);
+    $params = array_merge($params, $optParams);
+    return $this->call('getFoodMenus', array($params), "Google_Service_MyBusiness_FoodMenus");
+  }
+
+  /**
    * Gets the Google-updated version of the specified location. Returns
    * `NOT_FOUND` if the location does not exist. (locations.getGoogleUpdated)
    *
@@ -1722,15 +1760,15 @@ class Google_Service_MyBusiness_AccountsLocations_Resource extends Google_Servic
    * @opt_param string filter A filter constraining the locations to return. The
    * response includes only entries that match the filter. If `filter` is empty,
    * then constraints are applied and all locations (paginated) are retrieved for
-   * the requested account.
-   *
-   * For more information about valid fields and example usage, see [Work with
-   * Location Data Guide](https://developers.google.com/my-business/content
-   * /location-data#filter_results_when_you_list_locations).
+   * the requested account. For more information about valid fields and example
+   * usage, see [Work with Location Data Guide](https://developers.google.com/my-
+   * business/content/location-data#filter_results_when_you_list_locations).
    * @opt_param string languageCode The BCP 47 code of language to get display
    * location properties in. If this language is not available, they will be
    * provided in the language of the location. If neither is available, they will
-   * be provided in English.
+   * be provided in English. Deprecated. After August 15th, 2020, this field will
+   * no longer be applied. Instead, the language of the location will always be
+   * used.
    * @opt_param string orderBy Sorting order for the request. Multiple fields
    * should be comma-separated, following SQL syntax. The default sorting order is
    * ascending. To specify descending order, a suffix " desc" should be added.
@@ -1746,11 +1784,9 @@ class Google_Service_MyBusiness_AccountsLocations_Resource extends Google_Servic
   }
 
   /**
-   * Updates the specified location.
-   *
-   * Photos are only allowed on a location that has a Google+ page.
-   *
-   * Returns `NOT_FOUND` if the location does not exist. (locations.patch)
+   * Updates the specified location. Photos are only allowed on a location that
+   * has a Google+ page. Returns `NOT_FOUND` if the location does not exist.
+   * (locations.patch)
    *
    * @param string $name The name of the location to update.
    * @param Google_Location $postBody
@@ -1765,10 +1801,8 @@ class Google_Service_MyBusiness_AccountsLocations_Resource extends Google_Servic
    * @opt_param string attributeMask The IDs of the attributes to update. Only
    * attributes noted in the mask will be updated. If an attribute is present in
    * the mask and not in the location, it will be removed. An empty mask will
-   * update all attributes.
-   *
-   * Whenever this field is set, the update_mask should include attributes as one
-   * of the fields to update.
+   * update all attributes. Whenever this field is set, the update_mask should
+   * include attributes as one of the fields to update.
    * @return Google_Service_MyBusiness_Location
    */
   public function patch($name, Google_Service_MyBusiness_Location $postBody, $optParams = array())
@@ -1780,9 +1814,8 @@ class Google_Service_MyBusiness_AccountsLocations_Resource extends Google_Servic
 
   /**
    * Returns a report containing insights on one or more metrics by location.
-   *
-   * Note: Insight reports are limited to a batch size of 10 `location_names` per
-   * call. (locations.reportInsights)
+   * *Note:* Insight reports are limited to a batch size of 10 `location_names`
+   * per call. (locations.reportInsights)
    *
    * @param string $name The account resource name.
    * @param Google_ReportLocationInsightsRequest $postBody
@@ -1813,6 +1846,30 @@ class Google_Service_MyBusiness_AccountsLocations_Resource extends Google_Servic
     $params = array('name' => $name, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
     return $this->call('transfer', array($params), "Google_Service_MyBusiness_Location");
+  }
+
+  /**
+   * Updates the food menus of a specific location. Only call this if
+   * location.location_state.can_have_food_menu is true.
+   * (locations.updateFoodMenus)
+   *
+   * @param string $name Required. Google identifier for this location in the
+   * form: `accounts/{account_id}/locations/{location_id}/foodMenus`
+   * @param Google_FoodMenus $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string updateMask Optional. The specific fields to update. If no
+   * mask is specified, then this is treated as a full update and all fields are
+   * set to the values passed in, which may include unsetting empty fields in the
+   * request. Repeated field items can not be individually updated. Note: "name"
+   * of FoodMenus is the resource identifier which is not updatable.
+   * @return Google_Service_MyBusiness_FoodMenus
+   */
+  public function updateFoodMenus($name, Google_Service_MyBusiness_FoodMenus $postBody, $optParams = array())
+  {
+    $params = array('name' => $name, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('updateFoodMenus', array($params), "Google_Service_MyBusiness_FoodMenus");
   }
 
   /**
@@ -1942,11 +1999,9 @@ class Google_Service_MyBusiness_AccountsLocationsFollowers_Resource extends Goog
 {
 
   /**
-   * Get the followers settings for a location.
-   *
-   * NOT_FOUND is returned if either the account or the location doesn't exist.
-   * PRECONDITION_FAILED is returned if the location is not verified nor connected
-   * to Maps. (followers.getMetadata)
+   * Get the followers settings for a location. NOT_FOUND is returned if either
+   * the account or the location doesn't exist. PRECONDITION_FAILED is returned if
+   * the location is not verified nor connected to Maps. (followers.getMetadata)
    *
    * @param string $name The resource name of the location's followers metadata.
    * accounts/{account_id}/locations/{location_id}/followers/metadata
@@ -2061,8 +2116,8 @@ class Google_Service_MyBusiness_AccountsLocationsLocalPosts_Resource extends Goo
   /**
    * Returns insights for a set of local posts associated with a single listing.
    * Which metrics and how they are reported are options specified in the request
-   * proto. Note: Insight reports are limited to 100 `local_post_names` per call.
-   * (localPosts.reportInsights)
+   * proto. *Note:* Insight reports are limited to 100 `local_post_names` per
+   * call. (localPosts.reportInsights)
    *
    * @param string $name Required. The name of the location for which to fetch
    * insights.
@@ -2441,7 +2496,7 @@ class Google_Service_MyBusiness_AccountsLocationsReviews_Resource extends Google
    * @param array $optParams Optional parameters.
    *
    * @opt_param int pageSize How many reviews to fetch per page. The maximum
-   * `page_size` is 200.
+   * `page_size` is 50.
    * @opt_param string pageToken If specified, it fetches the next page of
    * reviews.
    * @opt_param string orderBy Specifies the field to sort reviews by. If
@@ -2486,10 +2541,9 @@ class Google_Service_MyBusiness_AccountsLocationsVerifications_Resource extends 
 {
 
   /**
-   * Completes a `PENDING` verification.
-   *
-   * It is only necessary for non `AUTO` verification methods. `AUTO` verification
-   * request is instantly `VERIFIED` upon creation. (verifications.complete)
+   * Completes a `PENDING` verification. It is only necessary for non `AUTO`
+   * verification methods. `AUTO` verification request is instantly `VERIFIED`
+   * upon creation. (verifications.complete)
    *
    * @param string $name Resource name of the verification to complete.
    * @param Google_CompleteVerificationRequest $postBody
@@ -2603,11 +2657,9 @@ class Google_Service_MyBusiness_Categories_Resource extends Google_Service_Resou
 
   /**
    * Returns a list of business categories. Search will match the category name
-   * but not the category ID.
-   *
-   * Note: Search only matches the front of a category name (that is, 'food' may
-   * return 'Food Court' but not 'Fast Food Restaurant').
-   * (categories.listCategories)
+   * but not the category ID. *Note:* Search only matches the front of a category
+   * name (that is, 'food' may return 'Food Court' but not 'Fast Food
+   * Restaurant'). (categories.listCategories)
    *
    * @param array $optParams Optional parameters.
    *
@@ -3458,12 +3510,50 @@ class Google_Service_MyBusiness_CallToAction extends Google_Model
   }
 }
 
-class Google_Service_MyBusiness_Category extends Google_Model
+class Google_Service_MyBusiness_CaloriesFact extends Google_Model
 {
+  protected $internal_gapi_mappings = array(
+  );
+  public $lowerAmount;
+  public $unit;
+  public $upperAmount;
+
+
+  public function setLowerAmount($lowerAmount)
+  {
+    $this->lowerAmount = $lowerAmount;
+  }
+  public function getLowerAmount()
+  {
+    return $this->lowerAmount;
+  }
+  public function setUnit($unit)
+  {
+    $this->unit = $unit;
+  }
+  public function getUnit()
+  {
+    return $this->unit;
+  }
+  public function setUpperAmount($upperAmount)
+  {
+    $this->upperAmount = $upperAmount;
+  }
+  public function getUpperAmount()
+  {
+    return $this->upperAmount;
+  }
+}
+
+class Google_Service_MyBusiness_Category extends Google_Collection
+{
+  protected $collection_key = 'serviceTypes';
   protected $internal_gapi_mappings = array(
   );
   public $categoryId;
   public $displayName;
+  protected $serviceTypesType = 'Google_Service_MyBusiness_ServiceType';
+  protected $serviceTypesDataType = 'array';
 
 
   public function setCategoryId($categoryId)
@@ -3481,6 +3571,14 @@ class Google_Service_MyBusiness_Category extends Google_Model
   public function getDisplayName()
   {
     return $this->displayName;
+  }
+  public function setServiceTypes($serviceTypes)
+  {
+    $this->serviceTypes = $serviceTypes;
+  }
+  public function getServiceTypes()
+  {
+    return $this->serviceTypes;
   }
 }
 
@@ -3962,6 +4060,281 @@ class Google_Service_MyBusiness_FollowersMetadata extends Google_Model
   }
 }
 
+class Google_Service_MyBusiness_FoodMenu extends Google_Collection
+{
+  protected $collection_key = 'sections';
+  protected $internal_gapi_mappings = array(
+  );
+  public $cuisines;
+  protected $labelsType = 'Google_Service_MyBusiness_MenuLabel';
+  protected $labelsDataType = 'array';
+  protected $sectionsType = 'Google_Service_MyBusiness_FoodMenuSection';
+  protected $sectionsDataType = 'array';
+  public $sourceUrl;
+
+
+  public function setCuisines($cuisines)
+  {
+    $this->cuisines = $cuisines;
+  }
+  public function getCuisines()
+  {
+    return $this->cuisines;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setSections($sections)
+  {
+    $this->sections = $sections;
+  }
+  public function getSections()
+  {
+    return $this->sections;
+  }
+  public function setSourceUrl($sourceUrl)
+  {
+    $this->sourceUrl = $sourceUrl;
+  }
+  public function getSourceUrl()
+  {
+    return $this->sourceUrl;
+  }
+}
+
+class Google_Service_MyBusiness_FoodMenuItem extends Google_Collection
+{
+  protected $collection_key = 'options';
+  protected $internal_gapi_mappings = array(
+  );
+  protected $attributesType = 'Google_Service_MyBusiness_FoodMenuItemAttributes';
+  protected $attributesDataType = '';
+  protected $labelsType = 'Google_Service_MyBusiness_MenuLabel';
+  protected $labelsDataType = 'array';
+  protected $optionsType = 'Google_Service_MyBusiness_FoodMenuItemOption';
+  protected $optionsDataType = 'array';
+
+
+  public function setAttributes(Google_Service_MyBusiness_FoodMenuItemAttributes $attributes)
+  {
+    $this->attributes = $attributes;
+  }
+  public function getAttributes()
+  {
+    return $this->attributes;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+  public function setOptions($options)
+  {
+    $this->options = $options;
+  }
+  public function getOptions()
+  {
+    return $this->options;
+  }
+}
+
+class Google_Service_MyBusiness_FoodMenuItemAttributes extends Google_Collection
+{
+  protected $collection_key = 'preparationMethods';
+  protected $internal_gapi_mappings = array(
+  );
+  public $allergen;
+  public $dietaryRestriction;
+  protected $ingredientsType = 'Google_Service_MyBusiness_Ingredient';
+  protected $ingredientsDataType = 'array';
+  public $mediaKeys;
+  protected $nutritionFactsType = 'Google_Service_MyBusiness_NutritionFacts';
+  protected $nutritionFactsDataType = '';
+  protected $portionSizeType = 'Google_Service_MyBusiness_PortionSize';
+  protected $portionSizeDataType = '';
+  public $preparationMethods;
+  protected $priceType = 'Google_Service_MyBusiness_Money';
+  protected $priceDataType = '';
+  public $servesNumPeople;
+  public $spiciness;
+
+
+  public function setAllergen($allergen)
+  {
+    $this->allergen = $allergen;
+  }
+  public function getAllergen()
+  {
+    return $this->allergen;
+  }
+  public function setDietaryRestriction($dietaryRestriction)
+  {
+    $this->dietaryRestriction = $dietaryRestriction;
+  }
+  public function getDietaryRestriction()
+  {
+    return $this->dietaryRestriction;
+  }
+  public function setIngredients($ingredients)
+  {
+    $this->ingredients = $ingredients;
+  }
+  public function getIngredients()
+  {
+    return $this->ingredients;
+  }
+  public function setMediaKeys($mediaKeys)
+  {
+    $this->mediaKeys = $mediaKeys;
+  }
+  public function getMediaKeys()
+  {
+    return $this->mediaKeys;
+  }
+  public function setNutritionFacts(Google_Service_MyBusiness_NutritionFacts $nutritionFacts)
+  {
+    $this->nutritionFacts = $nutritionFacts;
+  }
+  public function getNutritionFacts()
+  {
+    return $this->nutritionFacts;
+  }
+  public function setPortionSize(Google_Service_MyBusiness_PortionSize $portionSize)
+  {
+    $this->portionSize = $portionSize;
+  }
+  public function getPortionSize()
+  {
+    return $this->portionSize;
+  }
+  public function setPreparationMethods($preparationMethods)
+  {
+    $this->preparationMethods = $preparationMethods;
+  }
+  public function getPreparationMethods()
+  {
+    return $this->preparationMethods;
+  }
+  public function setPrice(Google_Service_MyBusiness_Money $price)
+  {
+    $this->price = $price;
+  }
+  public function getPrice()
+  {
+    return $this->price;
+  }
+  public function setServesNumPeople($servesNumPeople)
+  {
+    $this->servesNumPeople = $servesNumPeople;
+  }
+  public function getServesNumPeople()
+  {
+    return $this->servesNumPeople;
+  }
+  public function setSpiciness($spiciness)
+  {
+    $this->spiciness = $spiciness;
+  }
+  public function getSpiciness()
+  {
+    return $this->spiciness;
+  }
+}
+
+class Google_Service_MyBusiness_FoodMenuItemOption extends Google_Collection
+{
+  protected $collection_key = 'labels';
+  protected $internal_gapi_mappings = array(
+  );
+  protected $attributesType = 'Google_Service_MyBusiness_FoodMenuItemAttributes';
+  protected $attributesDataType = '';
+  protected $labelsType = 'Google_Service_MyBusiness_MenuLabel';
+  protected $labelsDataType = 'array';
+
+
+  public function setAttributes(Google_Service_MyBusiness_FoodMenuItemAttributes $attributes)
+  {
+    $this->attributes = $attributes;
+  }
+  public function getAttributes()
+  {
+    return $this->attributes;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+}
+
+class Google_Service_MyBusiness_FoodMenuSection extends Google_Collection
+{
+  protected $collection_key = 'labels';
+  protected $internal_gapi_mappings = array(
+  );
+  protected $itemsType = 'Google_Service_MyBusiness_FoodMenuItem';
+  protected $itemsDataType = 'array';
+  protected $labelsType = 'Google_Service_MyBusiness_MenuLabel';
+  protected $labelsDataType = 'array';
+
+
+  public function setItems($items)
+  {
+    $this->items = $items;
+  }
+  public function getItems()
+  {
+    return $this->items;
+  }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
+}
+
+class Google_Service_MyBusiness_FoodMenus extends Google_Collection
+{
+  protected $collection_key = 'menus';
+  protected $internal_gapi_mappings = array(
+  );
+  protected $menusType = 'Google_Service_MyBusiness_FoodMenu';
+  protected $menusDataType = 'array';
+  public $name;
+
+
+  public function setMenus($menus)
+  {
+    $this->menus = $menus;
+  }
+  public function getMenus()
+  {
+    return $this->menus;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+}
+
 class Google_Service_MyBusiness_FreeFormServiceItem extends Google_Model
 {
   protected $internal_gapi_mappings = array(
@@ -4053,6 +4426,25 @@ class Google_Service_MyBusiness_GoogleUpdatedLocation extends Google_Model
   public function getLocation()
   {
     return $this->location;
+  }
+}
+
+class Google_Service_MyBusiness_Ingredient extends Google_Collection
+{
+  protected $collection_key = 'labels';
+  protected $internal_gapi_mappings = array(
+  );
+  protected $labelsType = 'Google_Service_MyBusiness_MenuLabel';
+  protected $labelsDataType = 'array';
+
+
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
   }
 }
 
@@ -5312,6 +5704,7 @@ class Google_Service_MyBusiness_LocationState extends Google_Model
   protected $internal_gapi_mappings = array(
   );
   public $canDelete;
+  public $canHaveFoodMenus;
   public $canModifyServiceList;
   public $canUpdate;
   public $hasPendingEdits;
@@ -5335,6 +5728,14 @@ class Google_Service_MyBusiness_LocationState extends Google_Model
   public function getCanDelete()
   {
     return $this->canDelete;
+  }
+  public function setCanHaveFoodMenus($canHaveFoodMenus)
+  {
+    $this->canHaveFoodMenus = $canHaveFoodMenus;
+  }
+  public function getCanHaveFoodMenus()
+  {
+    return $this->canHaveFoodMenus;
   }
   public function setCanModifyServiceList($canModifyServiceList)
   {
@@ -5632,6 +6033,41 @@ class Google_Service_MyBusiness_MediaItemDataRef extends Google_Model
   }
 }
 
+class Google_Service_MyBusiness_MenuLabel extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $description;
+  public $displayName;
+  public $languageCode;
+
+
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setLanguageCode($languageCode)
+  {
+    $this->languageCode = $languageCode;
+  }
+  public function getLanguageCode()
+  {
+    return $this->languageCode;
+  }
+}
+
 class Google_Service_MyBusiness_Metadata extends Google_Model
 {
   protected $internal_gapi_mappings = array(
@@ -5805,6 +6241,109 @@ class Google_Service_MyBusiness_Notifications extends Google_Collection
   public function getTopicName()
   {
     return $this->topicName;
+  }
+}
+
+class Google_Service_MyBusiness_NutritionFact extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $lowerAmount;
+  public $unit;
+  public $upperAmount;
+
+
+  public function setLowerAmount($lowerAmount)
+  {
+    $this->lowerAmount = $lowerAmount;
+  }
+  public function getLowerAmount()
+  {
+    return $this->lowerAmount;
+  }
+  public function setUnit($unit)
+  {
+    $this->unit = $unit;
+  }
+  public function getUnit()
+  {
+    return $this->unit;
+  }
+  public function setUpperAmount($upperAmount)
+  {
+    $this->upperAmount = $upperAmount;
+  }
+  public function getUpperAmount()
+  {
+    return $this->upperAmount;
+  }
+}
+
+class Google_Service_MyBusiness_NutritionFacts extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  protected $caloriesType = 'Google_Service_MyBusiness_CaloriesFact';
+  protected $caloriesDataType = '';
+  protected $cholesterolType = 'Google_Service_MyBusiness_NutritionFact';
+  protected $cholesterolDataType = '';
+  protected $proteinType = 'Google_Service_MyBusiness_NutritionFact';
+  protected $proteinDataType = '';
+  protected $sodiumType = 'Google_Service_MyBusiness_NutritionFact';
+  protected $sodiumDataType = '';
+  protected $totalCarbohydrateType = 'Google_Service_MyBusiness_NutritionFact';
+  protected $totalCarbohydrateDataType = '';
+  protected $totalFatType = 'Google_Service_MyBusiness_NutritionFact';
+  protected $totalFatDataType = '';
+
+
+  public function setCalories(Google_Service_MyBusiness_CaloriesFact $calories)
+  {
+    $this->calories = $calories;
+  }
+  public function getCalories()
+  {
+    return $this->calories;
+  }
+  public function setCholesterol(Google_Service_MyBusiness_NutritionFact $cholesterol)
+  {
+    $this->cholesterol = $cholesterol;
+  }
+  public function getCholesterol()
+  {
+    return $this->cholesterol;
+  }
+  public function setProtein(Google_Service_MyBusiness_NutritionFact $protein)
+  {
+    $this->protein = $protein;
+  }
+  public function getProtein()
+  {
+    return $this->protein;
+  }
+  public function setSodium(Google_Service_MyBusiness_NutritionFact $sodium)
+  {
+    $this->sodium = $sodium;
+  }
+  public function getSodium()
+  {
+    return $this->sodium;
+  }
+  public function setTotalCarbohydrate(Google_Service_MyBusiness_NutritionFact $totalCarbohydrate)
+  {
+    $this->totalCarbohydrate = $totalCarbohydrate;
+  }
+  public function getTotalCarbohydrate()
+  {
+    return $this->totalCarbohydrate;
+  }
+  public function setTotalFat(Google_Service_MyBusiness_NutritionFact $totalFat)
+  {
+    $this->totalFat = $totalFat;
+  }
+  public function getTotalFat()
+  {
+    return $this->totalFat;
   }
 }
 
@@ -5983,6 +6522,34 @@ class Google_Service_MyBusiness_PointRadius extends Google_Model
   public function getRadiusKm()
   {
     return $this->radiusKm;
+  }
+}
+
+class Google_Service_MyBusiness_PortionSize extends Google_Collection
+{
+  protected $collection_key = 'unit';
+  protected $internal_gapi_mappings = array(
+  );
+  public $quantity;
+  protected $unitType = 'Google_Service_MyBusiness_MenuLabel';
+  protected $unitDataType = 'array';
+
+
+  public function setQuantity($quantity)
+  {
+    $this->quantity = $quantity;
+  }
+  public function getQuantity()
+  {
+    return $this->quantity;
+  }
+  public function setUnit($unit)
+  {
+    $this->unit = $unit;
+  }
+  public function getUnit()
+  {
+    return $this->unit;
   }
 }
 
@@ -6900,6 +7467,32 @@ class Google_Service_MyBusiness_ServiceList extends Google_Collection
   }
 }
 
+class Google_Service_MyBusiness_ServiceType extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $displayName;
+  public $serviceTypeId;
+
+
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setServiceTypeId($serviceTypeId)
+  {
+    $this->serviceTypeId = $serviceTypeId;
+  }
+  public function getServiceTypeId()
+  {
+    return $this->serviceTypeId;
+  }
+}
+
 class Google_Service_MyBusiness_SpecialHourPeriod extends Google_Model
 {
   protected $internal_gapi_mappings = array(
@@ -7400,23 +7993,6 @@ class Google_Service_MyBusiness_VerificationOption extends Google_Model
   }
 }
 
-class Google_Service_MyBusiness_VerificationToken extends Google_Model
-{
-  protected $internal_gapi_mappings = array(
-  );
-  public $tokenString;
-
-
-  public function setTokenString($tokenString)
-  {
-    $this->tokenString = $tokenString;
-  }
-  public function getTokenString()
-  {
-    return $this->tokenString;
-  }
-}
-
 class Google_Service_MyBusiness_VerifyLocationRequest extends Google_Model
 {
   protected $internal_gapi_mappings = array(
@@ -7431,8 +8007,6 @@ class Google_Service_MyBusiness_VerifyLocationRequest extends Google_Model
   public $method;
   protected $phoneInputType = 'Google_Service_MyBusiness_PhoneInput';
   protected $phoneInputDataType = '';
-  protected $vettedPartnerInputType = 'Google_Service_MyBusiness_VettedPartnerInput';
-  protected $vettedPartnerInputDataType = '';
 
 
   public function setAddressInput(Google_Service_MyBusiness_AddressInput $addressInput)
@@ -7483,14 +8057,6 @@ class Google_Service_MyBusiness_VerifyLocationRequest extends Google_Model
   {
     return $this->phoneInput;
   }
-  public function setVettedPartnerInput(Google_Service_MyBusiness_VettedPartnerInput $vettedPartnerInput)
-  {
-    $this->vettedPartnerInput = $vettedPartnerInput;
-  }
-  public function getVettedPartnerInput()
-  {
-    return $this->vettedPartnerInput;
-  }
 }
 
 class Google_Service_MyBusiness_VerifyLocationResponse extends Google_Model
@@ -7508,23 +8074,5 @@ class Google_Service_MyBusiness_VerifyLocationResponse extends Google_Model
   public function getVerification()
   {
     return $this->verification;
-  }
-}
-
-class Google_Service_MyBusiness_VettedPartnerInput extends Google_Model
-{
-  protected $internal_gapi_mappings = array(
-  );
-  protected $tokenType = 'Google_Service_MyBusiness_VerificationToken';
-  protected $tokenDataType = '';
-
-
-  public function setToken(Google_Service_MyBusiness_VerificationToken $token)
-  {
-    $this->token = $token;
-  }
-  public function getToken()
-  {
-    return $this->token;
   }
 }
