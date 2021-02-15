@@ -39,7 +39,9 @@ class Google_Service_MyBusiness extends Google_Service
   public $accounts_locations;
   public $accounts_locations_admins;
   public $accounts_locations_followers;
+  public $accounts_locations_insuranceNetworks;
   public $accounts_locations_localPosts;
+  public $accounts_locations_lodging;
   public $accounts_locations_media;
   public $accounts_locations_media_customers;
   public $accounts_locations_questions;
@@ -410,6 +412,34 @@ class Google_Service_MyBusiness extends Google_Service
                   'required' => true,
                 ),
               ),
+            ),'getHealthProviderAttributes' => array(
+              'path' => 'v4/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'languageCode' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'getLodging' => array(
+              'path' => 'v4/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'readMask' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
             ),'getServiceList' => array(
               'path' => 'v4/{+name}',
               'httpMethod' => 'GET',
@@ -493,6 +523,34 @@ class Google_Service_MyBusiness extends Google_Service
                 ),
               ),
             ),'updateFoodMenus' => array(
+              'path' => 'v4/{+name}',
+              'httpMethod' => 'PATCH',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'updateMask' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'updateHealthProviderAttributes' => array(
+              'path' => 'v4/{+name}',
+              'httpMethod' => 'PATCH',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'updateMask' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'updateLodging' => array(
               'path' => 'v4/{+name}',
               'httpMethod' => 'PATCH',
               'parameters' => array(
@@ -604,6 +662,38 @@ class Google_Service_MyBusiness extends Google_Service
           )
         )
     );
+    $this->accounts_locations_insuranceNetworks = new Google_Service_MyBusiness_AccountsLocationsInsuranceNetworks_Resource(
+        $this,
+        $this->serviceName,
+        'insuranceNetworks',
+        array(
+          'methods' => array(
+            'list' => array(
+              'path' => 'v4/{+parent}/insuranceNetworks',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'parent' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'languageCode' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
     $this->accounts_locations_localPosts = new Google_Service_MyBusiness_AccountsLocationsLocalPosts_Resource(
         $this,
         $this->serviceName,
@@ -680,6 +770,30 @@ class Google_Service_MyBusiness extends Google_Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->accounts_locations_lodging = new Google_Service_MyBusiness_AccountsLocationsLodging_Resource(
+        $this,
+        $this->serviceName,
+        'lodging',
+        array(
+          'methods' => array(
+            'getGoogleUpdated' => array(
+              'path' => 'v4/{+name}:getGoogleUpdated',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'readMask' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
               ),
             ),
@@ -1728,6 +1842,45 @@ class Google_Service_MyBusiness_AccountsLocations_Resource extends Google_Servic
   }
 
   /**
+   * Returns the Health provider attributes of a specific location.
+   * (locations.getHealthProviderAttributes)
+   *
+   * @param string $name Required. Google identifier for this location in the
+   * form: accounts/{account_id}/locations/{location_id}/healthProviderAttributes
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string languageCode Optional. The BCP 47 code for the language. If
+   * a language code is not provided, it defaults to English. Right now only 'en'
+   * is supported.
+   * @return Google_Service_MyBusiness_HealthProviderAttributes
+   */
+  public function getHealthProviderAttributes($name, $optParams = array())
+  {
+    $params = array('name' => $name);
+    $params = array_merge($params, $optParams);
+    return $this->call('getHealthProviderAttributes', array($params), "Google_Service_MyBusiness_HealthProviderAttributes");
+  }
+
+  /**
+   * Returns the Lodging of a specific location. (locations.getLodging)
+   *
+   * @param string $name Required. Google identifier for this location in the
+   * form: `accounts/{account_id}/locations/{location_id}/lodging`
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string readMask Optional. The specific fields to return. If no
+   * mask is specified, then it returns the full Lodging (same as "*"). Repeated
+   * field items cannot be individually specified.
+   * @return Google_Service_MyBusiness_Lodging
+   */
+  public function getLodging($name, $optParams = array())
+  {
+    $params = array('name' => $name);
+    $params = array_merge($params, $optParams);
+    return $this->call('getLodging', array($params), "Google_Service_MyBusiness_Lodging");
+  }
+
+  /**
    * Get the specified service list of a location. (locations.getServiceList)
    *
    * @param string $name Required. Google identifier for this location in the
@@ -1870,6 +2023,51 @@ class Google_Service_MyBusiness_AccountsLocations_Resource extends Google_Servic
     $params = array('name' => $name, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
     return $this->call('updateFoodMenus', array($params), "Google_Service_MyBusiness_FoodMenus");
+  }
+
+  /**
+   * Updates the Health provider attributes of a specific location.
+   * (locations.updateHealthProviderAttributes)
+   *
+   * @param string $name Required. Google identifier for this location in the
+   * form:
+   * `accounts/{account_id}/locations/{location_id}/healthProviderAttributes`
+   * @param Google_HealthProviderAttributes $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string updateMask Optional. The specific fields to update. If no
+   * mask is specified, then this is treated as a full update and all fields are
+   * set to the values passed in, which may include unsetting empty fields in the
+   * request. In V1, there is only the insurance_networks field to update. More
+   * attributes will be supported later.
+   * @return Google_Service_MyBusiness_HealthProviderAttributes
+   */
+  public function updateHealthProviderAttributes($name, Google_Service_MyBusiness_HealthProviderAttributes $postBody, $optParams = array())
+  {
+    $params = array('name' => $name, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('updateHealthProviderAttributes', array($params), "Google_Service_MyBusiness_HealthProviderAttributes");
+  }
+
+  /**
+   * Updates the Lodging of a specific location. (locations.updateLodging)
+   *
+   * @param string $name Required. Google identifier for this location in the
+   * form: `accounts/{account_id}/locations/{location_id}/lodging`
+   * @param Google_Lodging $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string updateMask Optional. The specific fields to update. If no
+   * mask is specified, then this is treated as a full update (same as "*") and
+   * all fields are set to the values passed in, which may include unsetting empty
+   * fields in the request. Repeated field items cannot be individually updated.
+   * @return Google_Service_MyBusiness_Lodging
+   */
+  public function updateLodging($name, Google_Service_MyBusiness_Lodging $postBody, $optParams = array())
+  {
+    $params = array('name' => $name, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('updateLodging', array($params), "Google_Service_MyBusiness_Lodging");
   }
 
   /**
@@ -2016,6 +2214,42 @@ class Google_Service_MyBusiness_AccountsLocationsFollowers_Resource extends Goog
   }
 }
 /**
+ * The "insuranceNetworks" collection of methods.
+ * Typical usage is:
+ *  <code>
+ *   $mybusinessService = new Google_Service_MyBusiness(...);
+ *   $insuranceNetworks = $mybusinessService->insuranceNetworks;
+ *  </code>
+ */
+class Google_Service_MyBusiness_AccountsLocationsInsuranceNetworks_Resource extends Google_Service_Resource
+{
+
+  /**
+   * Returns a list of all insurance networks supported by Google.
+   * (insuranceNetworks.listAccountsLocationsInsuranceNetworks)
+   *
+   * @param string $parent Required. The name of the location whose insurance
+   * networks will be listed. The name is in the form:
+   * accounts/{account_id}/locations/{location_id}
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string languageCode Optional. The BCP 47 code for the language. If
+   * a language code is not provided, it defaults to English. Right now only 'en'
+   * is supported.
+   * @opt_param int pageSize How many insurance networks to return per page. The
+   * default value is 5000. Maximum page size is 10000.
+   * @opt_param string pageToken If specified, returns the next page of insurance
+   * networks.
+   * @return Google_Service_MyBusiness_ListInsuranceNetworksResponse
+   */
+  public function listAccountsLocationsInsuranceNetworks($parent, $optParams = array())
+  {
+    $params = array('parent' => $parent);
+    $params = array_merge($params, $optParams);
+    return $this->call('list', array($params), "Google_Service_MyBusiness_ListInsuranceNetworksResponse");
+  }
+}
+/**
  * The "localPosts" collection of methods.
  * Typical usage is:
  *  <code>
@@ -2130,6 +2364,37 @@ class Google_Service_MyBusiness_AccountsLocationsLocalPosts_Resource extends Goo
     $params = array('name' => $name, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
     return $this->call('reportInsights', array($params), "Google_Service_MyBusiness_ReportLocalPostInsightsResponse");
+  }
+}
+/**
+ * The "lodging" collection of methods.
+ * Typical usage is:
+ *  <code>
+ *   $mybusinessService = new Google_Service_MyBusiness(...);
+ *   $lodging = $mybusinessService->lodging;
+ *  </code>
+ */
+class Google_Service_MyBusiness_AccountsLocationsLodging_Resource extends Google_Service_Resource
+{
+
+  /**
+   * Returns the Google updated Lodging of a specific location.
+   * (lodging.getGoogleUpdated)
+   *
+   * @param string $name Required. Google identifier for this location in the
+   * form: `accounts/{account_id}/locations/{location_id}/lodging`
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string readMask Optional. The specific fields to return. If no
+   * mask is specified, then it returns the full Lodging (same as "*"). Repeated
+   * field items cannot be individually specified.
+   * @return Google_Service_MyBusiness_GetGoogleUpdatedLodgingResponse
+   */
+  public function getGoogleUpdated($name, $optParams = array())
+  {
+    $params = array('name' => $name);
+    $params = array_merge($params, $optParams);
+    return $this->call('getGoogleUpdated', array($params), "Google_Service_MyBusiness_GetGoogleUpdatedLodgingResponse");
   }
 }
 /**
@@ -2780,6 +3045,86 @@ class Google_Service_MyBusiness_AcceptInvitationRequest extends Google_Model
 {
 }
 
+class Google_Service_MyBusiness_Accessibility extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $mobilityAccessible;
+  public $mobilityAccessibleElevator;
+  public $mobilityAccessibleElevatorException;
+  public $mobilityAccessibleException;
+  public $mobilityAccessibleParking;
+  public $mobilityAccessibleParkingException;
+  public $mobilityAccessiblePool;
+  public $mobilityAccessiblePoolException;
+
+
+  public function setMobilityAccessible($mobilityAccessible)
+  {
+    $this->mobilityAccessible = $mobilityAccessible;
+  }
+  public function getMobilityAccessible()
+  {
+    return $this->mobilityAccessible;
+  }
+  public function setMobilityAccessibleElevator($mobilityAccessibleElevator)
+  {
+    $this->mobilityAccessibleElevator = $mobilityAccessibleElevator;
+  }
+  public function getMobilityAccessibleElevator()
+  {
+    return $this->mobilityAccessibleElevator;
+  }
+  public function setMobilityAccessibleElevatorException($mobilityAccessibleElevatorException)
+  {
+    $this->mobilityAccessibleElevatorException = $mobilityAccessibleElevatorException;
+  }
+  public function getMobilityAccessibleElevatorException()
+  {
+    return $this->mobilityAccessibleElevatorException;
+  }
+  public function setMobilityAccessibleException($mobilityAccessibleException)
+  {
+    $this->mobilityAccessibleException = $mobilityAccessibleException;
+  }
+  public function getMobilityAccessibleException()
+  {
+    return $this->mobilityAccessibleException;
+  }
+  public function setMobilityAccessibleParking($mobilityAccessibleParking)
+  {
+    $this->mobilityAccessibleParking = $mobilityAccessibleParking;
+  }
+  public function getMobilityAccessibleParking()
+  {
+    return $this->mobilityAccessibleParking;
+  }
+  public function setMobilityAccessibleParkingException($mobilityAccessibleParkingException)
+  {
+    $this->mobilityAccessibleParkingException = $mobilityAccessibleParkingException;
+  }
+  public function getMobilityAccessibleParkingException()
+  {
+    return $this->mobilityAccessibleParkingException;
+  }
+  public function setMobilityAccessiblePool($mobilityAccessiblePool)
+  {
+    $this->mobilityAccessiblePool = $mobilityAccessiblePool;
+  }
+  public function getMobilityAccessiblePool()
+  {
+    return $this->mobilityAccessiblePool;
+  }
+  public function setMobilityAccessiblePoolException($mobilityAccessiblePoolException)
+  {
+    $this->mobilityAccessiblePoolException = $mobilityAccessiblePoolException;
+  }
+  public function getMobilityAccessiblePoolException()
+  {
+    return $this->mobilityAccessiblePoolException;
+  }
+}
+
 class Google_Service_MyBusiness_Account extends Google_Model
 {
   protected $internal_gapi_mappings = array(
@@ -2876,6 +3221,320 @@ class Google_Service_MyBusiness_AccountState extends Google_Model
   public function getStatus()
   {
     return $this->status;
+  }
+}
+
+class Google_Service_MyBusiness_Activities extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $beachAccess;
+  public $beachAccessException;
+  public $beachFront;
+  public $beachFrontException;
+  public $bicycleRental;
+  public $bicycleRentalException;
+  public $boutiqueStores;
+  public $boutiqueStoresException;
+  public $casino;
+  public $casinoException;
+  public $freeBicycleRental;
+  public $freeBicycleRentalException;
+  public $freeWatercraftRental;
+  public $freeWatercraftRentalException;
+  public $gameRoom;
+  public $gameRoomException;
+  public $golf;
+  public $golfException;
+  public $horsebackRiding;
+  public $horsebackRidingException;
+  public $nightclub;
+  public $nightclubException;
+  public $privateBeach;
+  public $privateBeachException;
+  public $scuba;
+  public $scubaException;
+  public $snorkeling;
+  public $snorkelingException;
+  public $tennis;
+  public $tennisException;
+  public $waterSkiing;
+  public $waterSkiingException;
+  public $watercraftRental;
+  public $watercraftRentalException;
+
+
+  public function setBeachAccess($beachAccess)
+  {
+    $this->beachAccess = $beachAccess;
+  }
+  public function getBeachAccess()
+  {
+    return $this->beachAccess;
+  }
+  public function setBeachAccessException($beachAccessException)
+  {
+    $this->beachAccessException = $beachAccessException;
+  }
+  public function getBeachAccessException()
+  {
+    return $this->beachAccessException;
+  }
+  public function setBeachFront($beachFront)
+  {
+    $this->beachFront = $beachFront;
+  }
+  public function getBeachFront()
+  {
+    return $this->beachFront;
+  }
+  public function setBeachFrontException($beachFrontException)
+  {
+    $this->beachFrontException = $beachFrontException;
+  }
+  public function getBeachFrontException()
+  {
+    return $this->beachFrontException;
+  }
+  public function setBicycleRental($bicycleRental)
+  {
+    $this->bicycleRental = $bicycleRental;
+  }
+  public function getBicycleRental()
+  {
+    return $this->bicycleRental;
+  }
+  public function setBicycleRentalException($bicycleRentalException)
+  {
+    $this->bicycleRentalException = $bicycleRentalException;
+  }
+  public function getBicycleRentalException()
+  {
+    return $this->bicycleRentalException;
+  }
+  public function setBoutiqueStores($boutiqueStores)
+  {
+    $this->boutiqueStores = $boutiqueStores;
+  }
+  public function getBoutiqueStores()
+  {
+    return $this->boutiqueStores;
+  }
+  public function setBoutiqueStoresException($boutiqueStoresException)
+  {
+    $this->boutiqueStoresException = $boutiqueStoresException;
+  }
+  public function getBoutiqueStoresException()
+  {
+    return $this->boutiqueStoresException;
+  }
+  public function setCasino($casino)
+  {
+    $this->casino = $casino;
+  }
+  public function getCasino()
+  {
+    return $this->casino;
+  }
+  public function setCasinoException($casinoException)
+  {
+    $this->casinoException = $casinoException;
+  }
+  public function getCasinoException()
+  {
+    return $this->casinoException;
+  }
+  public function setFreeBicycleRental($freeBicycleRental)
+  {
+    $this->freeBicycleRental = $freeBicycleRental;
+  }
+  public function getFreeBicycleRental()
+  {
+    return $this->freeBicycleRental;
+  }
+  public function setFreeBicycleRentalException($freeBicycleRentalException)
+  {
+    $this->freeBicycleRentalException = $freeBicycleRentalException;
+  }
+  public function getFreeBicycleRentalException()
+  {
+    return $this->freeBicycleRentalException;
+  }
+  public function setFreeWatercraftRental($freeWatercraftRental)
+  {
+    $this->freeWatercraftRental = $freeWatercraftRental;
+  }
+  public function getFreeWatercraftRental()
+  {
+    return $this->freeWatercraftRental;
+  }
+  public function setFreeWatercraftRentalException($freeWatercraftRentalException)
+  {
+    $this->freeWatercraftRentalException = $freeWatercraftRentalException;
+  }
+  public function getFreeWatercraftRentalException()
+  {
+    return $this->freeWatercraftRentalException;
+  }
+  public function setGameRoom($gameRoom)
+  {
+    $this->gameRoom = $gameRoom;
+  }
+  public function getGameRoom()
+  {
+    return $this->gameRoom;
+  }
+  public function setGameRoomException($gameRoomException)
+  {
+    $this->gameRoomException = $gameRoomException;
+  }
+  public function getGameRoomException()
+  {
+    return $this->gameRoomException;
+  }
+  public function setGolf($golf)
+  {
+    $this->golf = $golf;
+  }
+  public function getGolf()
+  {
+    return $this->golf;
+  }
+  public function setGolfException($golfException)
+  {
+    $this->golfException = $golfException;
+  }
+  public function getGolfException()
+  {
+    return $this->golfException;
+  }
+  public function setHorsebackRiding($horsebackRiding)
+  {
+    $this->horsebackRiding = $horsebackRiding;
+  }
+  public function getHorsebackRiding()
+  {
+    return $this->horsebackRiding;
+  }
+  public function setHorsebackRidingException($horsebackRidingException)
+  {
+    $this->horsebackRidingException = $horsebackRidingException;
+  }
+  public function getHorsebackRidingException()
+  {
+    return $this->horsebackRidingException;
+  }
+  public function setNightclub($nightclub)
+  {
+    $this->nightclub = $nightclub;
+  }
+  public function getNightclub()
+  {
+    return $this->nightclub;
+  }
+  public function setNightclubException($nightclubException)
+  {
+    $this->nightclubException = $nightclubException;
+  }
+  public function getNightclubException()
+  {
+    return $this->nightclubException;
+  }
+  public function setPrivateBeach($privateBeach)
+  {
+    $this->privateBeach = $privateBeach;
+  }
+  public function getPrivateBeach()
+  {
+    return $this->privateBeach;
+  }
+  public function setPrivateBeachException($privateBeachException)
+  {
+    $this->privateBeachException = $privateBeachException;
+  }
+  public function getPrivateBeachException()
+  {
+    return $this->privateBeachException;
+  }
+  public function setScuba($scuba)
+  {
+    $this->scuba = $scuba;
+  }
+  public function getScuba()
+  {
+    return $this->scuba;
+  }
+  public function setScubaException($scubaException)
+  {
+    $this->scubaException = $scubaException;
+  }
+  public function getScubaException()
+  {
+    return $this->scubaException;
+  }
+  public function setSnorkeling($snorkeling)
+  {
+    $this->snorkeling = $snorkeling;
+  }
+  public function getSnorkeling()
+  {
+    return $this->snorkeling;
+  }
+  public function setSnorkelingException($snorkelingException)
+  {
+    $this->snorkelingException = $snorkelingException;
+  }
+  public function getSnorkelingException()
+  {
+    return $this->snorkelingException;
+  }
+  public function setTennis($tennis)
+  {
+    $this->tennis = $tennis;
+  }
+  public function getTennis()
+  {
+    return $this->tennis;
+  }
+  public function setTennisException($tennisException)
+  {
+    $this->tennisException = $tennisException;
+  }
+  public function getTennisException()
+  {
+    return $this->tennisException;
+  }
+  public function setWaterSkiing($waterSkiing)
+  {
+    $this->waterSkiing = $waterSkiing;
+  }
+  public function getWaterSkiing()
+  {
+    return $this->waterSkiing;
+  }
+  public function setWaterSkiingException($waterSkiingException)
+  {
+    $this->waterSkiingException = $waterSkiingException;
+  }
+  public function getWaterSkiingException()
+  {
+    return $this->waterSkiingException;
+  }
+  public function setWatercraftRental($watercraftRental)
+  {
+    $this->watercraftRental = $watercraftRental;
+  }
+  public function getWatercraftRental()
+  {
+    return $this->watercraftRental;
+  }
+  public function setWatercraftRentalException($watercraftRentalException)
+  {
+    $this->watercraftRentalException = $watercraftRentalException;
+  }
+  public function getWatercraftRentalException()
+  {
+    return $this->watercraftRentalException;
   }
 }
 
@@ -3465,6 +4124,68 @@ class Google_Service_MyBusiness_BatchGetReviewsResponse extends Google_Collectio
   }
 }
 
+class Google_Service_MyBusiness_Business extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $businessCenter;
+  public $businessCenterException;
+  public $meetingRooms;
+  public $meetingRoomsCount;
+  public $meetingRoomsCountException;
+  public $meetingRoomsException;
+
+
+  public function setBusinessCenter($businessCenter)
+  {
+    $this->businessCenter = $businessCenter;
+  }
+  public function getBusinessCenter()
+  {
+    return $this->businessCenter;
+  }
+  public function setBusinessCenterException($businessCenterException)
+  {
+    $this->businessCenterException = $businessCenterException;
+  }
+  public function getBusinessCenterException()
+  {
+    return $this->businessCenterException;
+  }
+  public function setMeetingRooms($meetingRooms)
+  {
+    $this->meetingRooms = $meetingRooms;
+  }
+  public function getMeetingRooms()
+  {
+    return $this->meetingRooms;
+  }
+  public function setMeetingRoomsCount($meetingRoomsCount)
+  {
+    $this->meetingRoomsCount = $meetingRoomsCount;
+  }
+  public function getMeetingRoomsCount()
+  {
+    return $this->meetingRoomsCount;
+  }
+  public function setMeetingRoomsCountException($meetingRoomsCountException)
+  {
+    $this->meetingRoomsCountException = $meetingRoomsCountException;
+  }
+  public function getMeetingRoomsCountException()
+  {
+    return $this->meetingRoomsCountException;
+  }
+  public function setMeetingRoomsException($meetingRoomsException)
+  {
+    $this->meetingRoomsException = $meetingRoomsException;
+  }
+  public function getMeetingRoomsException()
+  {
+    return $this->meetingRoomsException;
+  }
+}
+
 class Google_Service_MyBusiness_BusinessHours extends Google_Collection
 {
   protected $collection_key = 'periods';
@@ -3711,6 +4432,86 @@ class Google_Service_MyBusiness_CompleteVerificationResponse extends Google_Mode
   }
 }
 
+class Google_Service_MyBusiness_Connectivity extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $freeWifi;
+  public $freeWifiException;
+  public $publicAreaWifiAvailable;
+  public $publicAreaWifiAvailableException;
+  public $publicInternetTerminal;
+  public $publicInternetTerminalException;
+  public $wifiAvailable;
+  public $wifiAvailableException;
+
+
+  public function setFreeWifi($freeWifi)
+  {
+    $this->freeWifi = $freeWifi;
+  }
+  public function getFreeWifi()
+  {
+    return $this->freeWifi;
+  }
+  public function setFreeWifiException($freeWifiException)
+  {
+    $this->freeWifiException = $freeWifiException;
+  }
+  public function getFreeWifiException()
+  {
+    return $this->freeWifiException;
+  }
+  public function setPublicAreaWifiAvailable($publicAreaWifiAvailable)
+  {
+    $this->publicAreaWifiAvailable = $publicAreaWifiAvailable;
+  }
+  public function getPublicAreaWifiAvailable()
+  {
+    return $this->publicAreaWifiAvailable;
+  }
+  public function setPublicAreaWifiAvailableException($publicAreaWifiAvailableException)
+  {
+    $this->publicAreaWifiAvailableException = $publicAreaWifiAvailableException;
+  }
+  public function getPublicAreaWifiAvailableException()
+  {
+    return $this->publicAreaWifiAvailableException;
+  }
+  public function setPublicInternetTerminal($publicInternetTerminal)
+  {
+    $this->publicInternetTerminal = $publicInternetTerminal;
+  }
+  public function getPublicInternetTerminal()
+  {
+    return $this->publicInternetTerminal;
+  }
+  public function setPublicInternetTerminalException($publicInternetTerminalException)
+  {
+    $this->publicInternetTerminalException = $publicInternetTerminalException;
+  }
+  public function getPublicInternetTerminalException()
+  {
+    return $this->publicInternetTerminalException;
+  }
+  public function setWifiAvailable($wifiAvailable)
+  {
+    $this->wifiAvailable = $wifiAvailable;
+  }
+  public function getWifiAvailable()
+  {
+    return $this->wifiAvailable;
+  }
+  public function setWifiAvailableException($wifiAvailableException)
+  {
+    $this->wifiAvailableException = $wifiAvailableException;
+  }
+  public function getWifiAvailableException()
+  {
+    return $this->wifiAvailableException;
+  }
+}
+
 class Google_Service_MyBusiness_Date extends Google_Model
 {
   protected $internal_gapi_mappings = array(
@@ -3925,6 +4726,184 @@ class Google_Service_MyBusiness_EmailVerificationData extends Google_Model
   }
 }
 
+class Google_Service_MyBusiness_EnhancedCleaning extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $commercialGradeDisinfectantCleaning;
+  public $commercialGradeDisinfectantCleaningException;
+  public $commonAreasEnhancedCleaning;
+  public $commonAreasEnhancedCleaningException;
+  public $employeesTrainedCleaningProcedures;
+  public $employeesTrainedCleaningProceduresException;
+  public $employeesTrainedThoroughHandWashing;
+  public $employeesTrainedThoroughHandWashingException;
+  public $employeesWearProtectiveEquipment;
+  public $employeesWearProtectiveEquipmentException;
+  public $guestRoomsEnhancedCleaning;
+  public $guestRoomsEnhancedCleaningException;
+
+
+  public function setCommercialGradeDisinfectantCleaning($commercialGradeDisinfectantCleaning)
+  {
+    $this->commercialGradeDisinfectantCleaning = $commercialGradeDisinfectantCleaning;
+  }
+  public function getCommercialGradeDisinfectantCleaning()
+  {
+    return $this->commercialGradeDisinfectantCleaning;
+  }
+  public function setCommercialGradeDisinfectantCleaningException($commercialGradeDisinfectantCleaningException)
+  {
+    $this->commercialGradeDisinfectantCleaningException = $commercialGradeDisinfectantCleaningException;
+  }
+  public function getCommercialGradeDisinfectantCleaningException()
+  {
+    return $this->commercialGradeDisinfectantCleaningException;
+  }
+  public function setCommonAreasEnhancedCleaning($commonAreasEnhancedCleaning)
+  {
+    $this->commonAreasEnhancedCleaning = $commonAreasEnhancedCleaning;
+  }
+  public function getCommonAreasEnhancedCleaning()
+  {
+    return $this->commonAreasEnhancedCleaning;
+  }
+  public function setCommonAreasEnhancedCleaningException($commonAreasEnhancedCleaningException)
+  {
+    $this->commonAreasEnhancedCleaningException = $commonAreasEnhancedCleaningException;
+  }
+  public function getCommonAreasEnhancedCleaningException()
+  {
+    return $this->commonAreasEnhancedCleaningException;
+  }
+  public function setEmployeesTrainedCleaningProcedures($employeesTrainedCleaningProcedures)
+  {
+    $this->employeesTrainedCleaningProcedures = $employeesTrainedCleaningProcedures;
+  }
+  public function getEmployeesTrainedCleaningProcedures()
+  {
+    return $this->employeesTrainedCleaningProcedures;
+  }
+  public function setEmployeesTrainedCleaningProceduresException($employeesTrainedCleaningProceduresException)
+  {
+    $this->employeesTrainedCleaningProceduresException = $employeesTrainedCleaningProceduresException;
+  }
+  public function getEmployeesTrainedCleaningProceduresException()
+  {
+    return $this->employeesTrainedCleaningProceduresException;
+  }
+  public function setEmployeesTrainedThoroughHandWashing($employeesTrainedThoroughHandWashing)
+  {
+    $this->employeesTrainedThoroughHandWashing = $employeesTrainedThoroughHandWashing;
+  }
+  public function getEmployeesTrainedThoroughHandWashing()
+  {
+    return $this->employeesTrainedThoroughHandWashing;
+  }
+  public function setEmployeesTrainedThoroughHandWashingException($employeesTrainedThoroughHandWashingException)
+  {
+    $this->employeesTrainedThoroughHandWashingException = $employeesTrainedThoroughHandWashingException;
+  }
+  public function getEmployeesTrainedThoroughHandWashingException()
+  {
+    return $this->employeesTrainedThoroughHandWashingException;
+  }
+  public function setEmployeesWearProtectiveEquipment($employeesWearProtectiveEquipment)
+  {
+    $this->employeesWearProtectiveEquipment = $employeesWearProtectiveEquipment;
+  }
+  public function getEmployeesWearProtectiveEquipment()
+  {
+    return $this->employeesWearProtectiveEquipment;
+  }
+  public function setEmployeesWearProtectiveEquipmentException($employeesWearProtectiveEquipmentException)
+  {
+    $this->employeesWearProtectiveEquipmentException = $employeesWearProtectiveEquipmentException;
+  }
+  public function getEmployeesWearProtectiveEquipmentException()
+  {
+    return $this->employeesWearProtectiveEquipmentException;
+  }
+  public function setGuestRoomsEnhancedCleaning($guestRoomsEnhancedCleaning)
+  {
+    $this->guestRoomsEnhancedCleaning = $guestRoomsEnhancedCleaning;
+  }
+  public function getGuestRoomsEnhancedCleaning()
+  {
+    return $this->guestRoomsEnhancedCleaning;
+  }
+  public function setGuestRoomsEnhancedCleaningException($guestRoomsEnhancedCleaningException)
+  {
+    $this->guestRoomsEnhancedCleaningException = $guestRoomsEnhancedCleaningException;
+  }
+  public function getGuestRoomsEnhancedCleaningException()
+  {
+    return $this->guestRoomsEnhancedCleaningException;
+  }
+}
+
+class Google_Service_MyBusiness_Families extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $babysitting;
+  public $babysittingException;
+  public $kidsActivities;
+  public $kidsActivitiesException;
+  public $kidsClub;
+  public $kidsClubException;
+
+
+  public function setBabysitting($babysitting)
+  {
+    $this->babysitting = $babysitting;
+  }
+  public function getBabysitting()
+  {
+    return $this->babysitting;
+  }
+  public function setBabysittingException($babysittingException)
+  {
+    $this->babysittingException = $babysittingException;
+  }
+  public function getBabysittingException()
+  {
+    return $this->babysittingException;
+  }
+  public function setKidsActivities($kidsActivities)
+  {
+    $this->kidsActivities = $kidsActivities;
+  }
+  public function getKidsActivities()
+  {
+    return $this->kidsActivities;
+  }
+  public function setKidsActivitiesException($kidsActivitiesException)
+  {
+    $this->kidsActivitiesException = $kidsActivitiesException;
+  }
+  public function getKidsActivitiesException()
+  {
+    return $this->kidsActivitiesException;
+  }
+  public function setKidsClub($kidsClub)
+  {
+    $this->kidsClub = $kidsClub;
+  }
+  public function getKidsClub()
+  {
+    return $this->kidsClub;
+  }
+  public function setKidsClubException($kidsClubException)
+  {
+    $this->kidsClubException = $kidsClubException;
+  }
+  public function getKidsClubException()
+  {
+    return $this->kidsClubException;
+  }
+}
+
 class Google_Service_MyBusiness_FetchVerificationOptionsRequest extends Google_Model
 {
   protected $internal_gapi_mappings = array(
@@ -4057,6 +5036,230 @@ class Google_Service_MyBusiness_FollowersMetadata extends Google_Model
   public function getName()
   {
     return $this->name;
+  }
+}
+
+class Google_Service_MyBusiness_FoodAndDrink extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $bar;
+  public $barException;
+  public $breakfastAvailable;
+  public $breakfastAvailableException;
+  public $breakfastBuffet;
+  public $breakfastBuffetException;
+  public $buffet;
+  public $buffetException;
+  public $dinnerBuffet;
+  public $dinnerBuffetException;
+  public $freeBreakfast;
+  public $freeBreakfastException;
+  public $restaurant;
+  public $restaurantException;
+  public $restaurantsCount;
+  public $restaurantsCountException;
+  public $roomService;
+  public $roomServiceException;
+  public $tableService;
+  public $tableServiceException;
+  public $twentyFourHourRoomService;
+  public $twentyFourHourRoomServiceException;
+  public $vendingMachine;
+  public $vendingMachineException;
+
+
+  public function setBar($bar)
+  {
+    $this->bar = $bar;
+  }
+  public function getBar()
+  {
+    return $this->bar;
+  }
+  public function setBarException($barException)
+  {
+    $this->barException = $barException;
+  }
+  public function getBarException()
+  {
+    return $this->barException;
+  }
+  public function setBreakfastAvailable($breakfastAvailable)
+  {
+    $this->breakfastAvailable = $breakfastAvailable;
+  }
+  public function getBreakfastAvailable()
+  {
+    return $this->breakfastAvailable;
+  }
+  public function setBreakfastAvailableException($breakfastAvailableException)
+  {
+    $this->breakfastAvailableException = $breakfastAvailableException;
+  }
+  public function getBreakfastAvailableException()
+  {
+    return $this->breakfastAvailableException;
+  }
+  public function setBreakfastBuffet($breakfastBuffet)
+  {
+    $this->breakfastBuffet = $breakfastBuffet;
+  }
+  public function getBreakfastBuffet()
+  {
+    return $this->breakfastBuffet;
+  }
+  public function setBreakfastBuffetException($breakfastBuffetException)
+  {
+    $this->breakfastBuffetException = $breakfastBuffetException;
+  }
+  public function getBreakfastBuffetException()
+  {
+    return $this->breakfastBuffetException;
+  }
+  public function setBuffet($buffet)
+  {
+    $this->buffet = $buffet;
+  }
+  public function getBuffet()
+  {
+    return $this->buffet;
+  }
+  public function setBuffetException($buffetException)
+  {
+    $this->buffetException = $buffetException;
+  }
+  public function getBuffetException()
+  {
+    return $this->buffetException;
+  }
+  public function setDinnerBuffet($dinnerBuffet)
+  {
+    $this->dinnerBuffet = $dinnerBuffet;
+  }
+  public function getDinnerBuffet()
+  {
+    return $this->dinnerBuffet;
+  }
+  public function setDinnerBuffetException($dinnerBuffetException)
+  {
+    $this->dinnerBuffetException = $dinnerBuffetException;
+  }
+  public function getDinnerBuffetException()
+  {
+    return $this->dinnerBuffetException;
+  }
+  public function setFreeBreakfast($freeBreakfast)
+  {
+    $this->freeBreakfast = $freeBreakfast;
+  }
+  public function getFreeBreakfast()
+  {
+    return $this->freeBreakfast;
+  }
+  public function setFreeBreakfastException($freeBreakfastException)
+  {
+    $this->freeBreakfastException = $freeBreakfastException;
+  }
+  public function getFreeBreakfastException()
+  {
+    return $this->freeBreakfastException;
+  }
+  public function setRestaurant($restaurant)
+  {
+    $this->restaurant = $restaurant;
+  }
+  public function getRestaurant()
+  {
+    return $this->restaurant;
+  }
+  public function setRestaurantException($restaurantException)
+  {
+    $this->restaurantException = $restaurantException;
+  }
+  public function getRestaurantException()
+  {
+    return $this->restaurantException;
+  }
+  public function setRestaurantsCount($restaurantsCount)
+  {
+    $this->restaurantsCount = $restaurantsCount;
+  }
+  public function getRestaurantsCount()
+  {
+    return $this->restaurantsCount;
+  }
+  public function setRestaurantsCountException($restaurantsCountException)
+  {
+    $this->restaurantsCountException = $restaurantsCountException;
+  }
+  public function getRestaurantsCountException()
+  {
+    return $this->restaurantsCountException;
+  }
+  public function setRoomService($roomService)
+  {
+    $this->roomService = $roomService;
+  }
+  public function getRoomService()
+  {
+    return $this->roomService;
+  }
+  public function setRoomServiceException($roomServiceException)
+  {
+    $this->roomServiceException = $roomServiceException;
+  }
+  public function getRoomServiceException()
+  {
+    return $this->roomServiceException;
+  }
+  public function setTableService($tableService)
+  {
+    $this->tableService = $tableService;
+  }
+  public function getTableService()
+  {
+    return $this->tableService;
+  }
+  public function setTableServiceException($tableServiceException)
+  {
+    $this->tableServiceException = $tableServiceException;
+  }
+  public function getTableServiceException()
+  {
+    return $this->tableServiceException;
+  }
+  public function setTwentyFourHourRoomService($twentyFourHourRoomService)
+  {
+    $this->twentyFourHourRoomService = $twentyFourHourRoomService;
+  }
+  public function getTwentyFourHourRoomService()
+  {
+    return $this->twentyFourHourRoomService;
+  }
+  public function setTwentyFourHourRoomServiceException($twentyFourHourRoomServiceException)
+  {
+    $this->twentyFourHourRoomServiceException = $twentyFourHourRoomServiceException;
+  }
+  public function getTwentyFourHourRoomServiceException()
+  {
+    return $this->twentyFourHourRoomServiceException;
+  }
+  public function setVendingMachine($vendingMachine)
+  {
+    $this->vendingMachine = $vendingMachine;
+  }
+  public function getVendingMachine()
+  {
+    return $this->vendingMachine;
+  }
+  public function setVendingMachineException($vendingMachineException)
+  {
+    $this->vendingMachineException = $vendingMachineException;
+  }
+  public function getVendingMachineException()
+  {
+    return $this->vendingMachineException;
   }
 }
 
@@ -4366,6 +5569,33 @@ class Google_Service_MyBusiness_GenerateAccountNumberRequest extends Google_Mode
 {
 }
 
+class Google_Service_MyBusiness_GetGoogleUpdatedLodgingResponse extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $diffMask;
+  protected $lodgingType = 'Google_Service_MyBusiness_Lodging';
+  protected $lodgingDataType = '';
+
+
+  public function setDiffMask($diffMask)
+  {
+    $this->diffMask = $diffMask;
+  }
+  public function getDiffMask()
+  {
+    return $this->diffMask;
+  }
+  public function setLodging(Google_Service_MyBusiness_Lodging $lodging)
+  {
+    $this->lodging = $lodging;
+  }
+  public function getLodging()
+  {
+    return $this->lodging;
+  }
+}
+
 class Google_Service_MyBusiness_GoogleLocation extends Google_Model
 {
   protected $internal_gapi_mappings = array(
@@ -4429,6 +5659,479 @@ class Google_Service_MyBusiness_GoogleUpdatedLocation extends Google_Model
   }
 }
 
+class Google_Service_MyBusiness_GuestUnitFeatures extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $bungalowOrVilla;
+  public $bungalowOrVillaException;
+  public $connectingUnitAvailable;
+  public $connectingUnitAvailableException;
+  public $executiveFloor;
+  public $executiveFloorException;
+  public $maxAdultOccupantsCount;
+  public $maxAdultOccupantsCountException;
+  public $maxChildOccupantsCount;
+  public $maxChildOccupantsCountException;
+  public $maxOccupantsCount;
+  public $maxOccupantsCountException;
+  public $privateHome;
+  public $privateHomeException;
+  public $suite;
+  public $suiteException;
+  public $tier;
+  public $tierException;
+  protected $totalLivingAreasType = 'Google_Service_MyBusiness_LivingArea';
+  protected $totalLivingAreasDataType = '';
+  protected $viewsType = 'Google_Service_MyBusiness_ViewsFromUnit';
+  protected $viewsDataType = '';
+
+
+  public function setBungalowOrVilla($bungalowOrVilla)
+  {
+    $this->bungalowOrVilla = $bungalowOrVilla;
+  }
+  public function getBungalowOrVilla()
+  {
+    return $this->bungalowOrVilla;
+  }
+  public function setBungalowOrVillaException($bungalowOrVillaException)
+  {
+    $this->bungalowOrVillaException = $bungalowOrVillaException;
+  }
+  public function getBungalowOrVillaException()
+  {
+    return $this->bungalowOrVillaException;
+  }
+  public function setConnectingUnitAvailable($connectingUnitAvailable)
+  {
+    $this->connectingUnitAvailable = $connectingUnitAvailable;
+  }
+  public function getConnectingUnitAvailable()
+  {
+    return $this->connectingUnitAvailable;
+  }
+  public function setConnectingUnitAvailableException($connectingUnitAvailableException)
+  {
+    $this->connectingUnitAvailableException = $connectingUnitAvailableException;
+  }
+  public function getConnectingUnitAvailableException()
+  {
+    return $this->connectingUnitAvailableException;
+  }
+  public function setExecutiveFloor($executiveFloor)
+  {
+    $this->executiveFloor = $executiveFloor;
+  }
+  public function getExecutiveFloor()
+  {
+    return $this->executiveFloor;
+  }
+  public function setExecutiveFloorException($executiveFloorException)
+  {
+    $this->executiveFloorException = $executiveFloorException;
+  }
+  public function getExecutiveFloorException()
+  {
+    return $this->executiveFloorException;
+  }
+  public function setMaxAdultOccupantsCount($maxAdultOccupantsCount)
+  {
+    $this->maxAdultOccupantsCount = $maxAdultOccupantsCount;
+  }
+  public function getMaxAdultOccupantsCount()
+  {
+    return $this->maxAdultOccupantsCount;
+  }
+  public function setMaxAdultOccupantsCountException($maxAdultOccupantsCountException)
+  {
+    $this->maxAdultOccupantsCountException = $maxAdultOccupantsCountException;
+  }
+  public function getMaxAdultOccupantsCountException()
+  {
+    return $this->maxAdultOccupantsCountException;
+  }
+  public function setMaxChildOccupantsCount($maxChildOccupantsCount)
+  {
+    $this->maxChildOccupantsCount = $maxChildOccupantsCount;
+  }
+  public function getMaxChildOccupantsCount()
+  {
+    return $this->maxChildOccupantsCount;
+  }
+  public function setMaxChildOccupantsCountException($maxChildOccupantsCountException)
+  {
+    $this->maxChildOccupantsCountException = $maxChildOccupantsCountException;
+  }
+  public function getMaxChildOccupantsCountException()
+  {
+    return $this->maxChildOccupantsCountException;
+  }
+  public function setMaxOccupantsCount($maxOccupantsCount)
+  {
+    $this->maxOccupantsCount = $maxOccupantsCount;
+  }
+  public function getMaxOccupantsCount()
+  {
+    return $this->maxOccupantsCount;
+  }
+  public function setMaxOccupantsCountException($maxOccupantsCountException)
+  {
+    $this->maxOccupantsCountException = $maxOccupantsCountException;
+  }
+  public function getMaxOccupantsCountException()
+  {
+    return $this->maxOccupantsCountException;
+  }
+  public function setPrivateHome($privateHome)
+  {
+    $this->privateHome = $privateHome;
+  }
+  public function getPrivateHome()
+  {
+    return $this->privateHome;
+  }
+  public function setPrivateHomeException($privateHomeException)
+  {
+    $this->privateHomeException = $privateHomeException;
+  }
+  public function getPrivateHomeException()
+  {
+    return $this->privateHomeException;
+  }
+  public function setSuite($suite)
+  {
+    $this->suite = $suite;
+  }
+  public function getSuite()
+  {
+    return $this->suite;
+  }
+  public function setSuiteException($suiteException)
+  {
+    $this->suiteException = $suiteException;
+  }
+  public function getSuiteException()
+  {
+    return $this->suiteException;
+  }
+  public function setTier($tier)
+  {
+    $this->tier = $tier;
+  }
+  public function getTier()
+  {
+    return $this->tier;
+  }
+  public function setTierException($tierException)
+  {
+    $this->tierException = $tierException;
+  }
+  public function getTierException()
+  {
+    return $this->tierException;
+  }
+  public function setTotalLivingAreas(Google_Service_MyBusiness_LivingArea $totalLivingAreas)
+  {
+    $this->totalLivingAreas = $totalLivingAreas;
+  }
+  public function getTotalLivingAreas()
+  {
+    return $this->totalLivingAreas;
+  }
+  public function setViews(Google_Service_MyBusiness_ViewsFromUnit $views)
+  {
+    $this->views = $views;
+  }
+  public function getViews()
+  {
+    return $this->views;
+  }
+}
+
+class Google_Service_MyBusiness_GuestUnitType extends Google_Collection
+{
+  protected $collection_key = 'codes';
+  protected $internal_gapi_mappings = array(
+  );
+  public $codes;
+  protected $featuresType = 'Google_Service_MyBusiness_GuestUnitFeatures';
+  protected $featuresDataType = '';
+  public $label;
+
+
+  public function setCodes($codes)
+  {
+    $this->codes = $codes;
+  }
+  public function getCodes()
+  {
+    return $this->codes;
+  }
+  public function setFeatures(Google_Service_MyBusiness_GuestUnitFeatures $features)
+  {
+    $this->features = $features;
+  }
+  public function getFeatures()
+  {
+    return $this->features;
+  }
+  public function setLabel($label)
+  {
+    $this->label = $label;
+  }
+  public function getLabel()
+  {
+    return $this->label;
+  }
+}
+
+class Google_Service_MyBusiness_HealthAndSafety extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  protected $enhancedCleaningType = 'Google_Service_MyBusiness_EnhancedCleaning';
+  protected $enhancedCleaningDataType = '';
+  protected $increasedFoodSafetyType = 'Google_Service_MyBusiness_IncreasedFoodSafety';
+  protected $increasedFoodSafetyDataType = '';
+  protected $minimizedContactType = 'Google_Service_MyBusiness_MinimizedContact';
+  protected $minimizedContactDataType = '';
+  protected $personalProtectionType = 'Google_Service_MyBusiness_PersonalProtection';
+  protected $personalProtectionDataType = '';
+  protected $physicalDistancingType = 'Google_Service_MyBusiness_PhysicalDistancing';
+  protected $physicalDistancingDataType = '';
+
+
+  public function setEnhancedCleaning(Google_Service_MyBusiness_EnhancedCleaning $enhancedCleaning)
+  {
+    $this->enhancedCleaning = $enhancedCleaning;
+  }
+  public function getEnhancedCleaning()
+  {
+    return $this->enhancedCleaning;
+  }
+  public function setIncreasedFoodSafety(Google_Service_MyBusiness_IncreasedFoodSafety $increasedFoodSafety)
+  {
+    $this->increasedFoodSafety = $increasedFoodSafety;
+  }
+  public function getIncreasedFoodSafety()
+  {
+    return $this->increasedFoodSafety;
+  }
+  public function setMinimizedContact(Google_Service_MyBusiness_MinimizedContact $minimizedContact)
+  {
+    $this->minimizedContact = $minimizedContact;
+  }
+  public function getMinimizedContact()
+  {
+    return $this->minimizedContact;
+  }
+  public function setPersonalProtection(Google_Service_MyBusiness_PersonalProtection $personalProtection)
+  {
+    $this->personalProtection = $personalProtection;
+  }
+  public function getPersonalProtection()
+  {
+    return $this->personalProtection;
+  }
+  public function setPhysicalDistancing(Google_Service_MyBusiness_PhysicalDistancing $physicalDistancing)
+  {
+    $this->physicalDistancing = $physicalDistancing;
+  }
+  public function getPhysicalDistancing()
+  {
+    return $this->physicalDistancing;
+  }
+}
+
+class Google_Service_MyBusiness_HealthProviderAttributes extends Google_Collection
+{
+  protected $collection_key = 'insuranceNetworks';
+  protected $internal_gapi_mappings = array(
+  );
+  protected $insuranceNetworksType = 'Google_Service_MyBusiness_InsuranceNetwork';
+  protected $insuranceNetworksDataType = 'array';
+  public $name;
+
+
+  public function setInsuranceNetworks($insuranceNetworks)
+  {
+    $this->insuranceNetworks = $insuranceNetworks;
+  }
+  public function getInsuranceNetworks()
+  {
+    return $this->insuranceNetworks;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+}
+
+class Google_Service_MyBusiness_Housekeeping extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $dailyHousekeeping;
+  public $dailyHousekeepingException;
+  public $housekeepingAvailable;
+  public $housekeepingAvailableException;
+  public $turndownService;
+  public $turndownServiceException;
+
+
+  public function setDailyHousekeeping($dailyHousekeeping)
+  {
+    $this->dailyHousekeeping = $dailyHousekeeping;
+  }
+  public function getDailyHousekeeping()
+  {
+    return $this->dailyHousekeeping;
+  }
+  public function setDailyHousekeepingException($dailyHousekeepingException)
+  {
+    $this->dailyHousekeepingException = $dailyHousekeepingException;
+  }
+  public function getDailyHousekeepingException()
+  {
+    return $this->dailyHousekeepingException;
+  }
+  public function setHousekeepingAvailable($housekeepingAvailable)
+  {
+    $this->housekeepingAvailable = $housekeepingAvailable;
+  }
+  public function getHousekeepingAvailable()
+  {
+    return $this->housekeepingAvailable;
+  }
+  public function setHousekeepingAvailableException($housekeepingAvailableException)
+  {
+    $this->housekeepingAvailableException = $housekeepingAvailableException;
+  }
+  public function getHousekeepingAvailableException()
+  {
+    return $this->housekeepingAvailableException;
+  }
+  public function setTurndownService($turndownService)
+  {
+    $this->turndownService = $turndownService;
+  }
+  public function getTurndownService()
+  {
+    return $this->turndownService;
+  }
+  public function setTurndownServiceException($turndownServiceException)
+  {
+    $this->turndownServiceException = $turndownServiceException;
+  }
+  public function getTurndownServiceException()
+  {
+    return $this->turndownServiceException;
+  }
+}
+
+class Google_Service_MyBusiness_IncreasedFoodSafety extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $diningAreasAdditionalSanitation;
+  public $diningAreasAdditionalSanitationException;
+  public $disposableFlatware;
+  public $disposableFlatwareException;
+  public $foodPreparationAndServingAdditionalSafety;
+  public $foodPreparationAndServingAdditionalSafetyException;
+  public $individualPackagedMeals;
+  public $individualPackagedMealsException;
+  public $singleUseFoodMenus;
+  public $singleUseFoodMenusException;
+
+
+  public function setDiningAreasAdditionalSanitation($diningAreasAdditionalSanitation)
+  {
+    $this->diningAreasAdditionalSanitation = $diningAreasAdditionalSanitation;
+  }
+  public function getDiningAreasAdditionalSanitation()
+  {
+    return $this->diningAreasAdditionalSanitation;
+  }
+  public function setDiningAreasAdditionalSanitationException($diningAreasAdditionalSanitationException)
+  {
+    $this->diningAreasAdditionalSanitationException = $diningAreasAdditionalSanitationException;
+  }
+  public function getDiningAreasAdditionalSanitationException()
+  {
+    return $this->diningAreasAdditionalSanitationException;
+  }
+  public function setDisposableFlatware($disposableFlatware)
+  {
+    $this->disposableFlatware = $disposableFlatware;
+  }
+  public function getDisposableFlatware()
+  {
+    return $this->disposableFlatware;
+  }
+  public function setDisposableFlatwareException($disposableFlatwareException)
+  {
+    $this->disposableFlatwareException = $disposableFlatwareException;
+  }
+  public function getDisposableFlatwareException()
+  {
+    return $this->disposableFlatwareException;
+  }
+  public function setFoodPreparationAndServingAdditionalSafety($foodPreparationAndServingAdditionalSafety)
+  {
+    $this->foodPreparationAndServingAdditionalSafety = $foodPreparationAndServingAdditionalSafety;
+  }
+  public function getFoodPreparationAndServingAdditionalSafety()
+  {
+    return $this->foodPreparationAndServingAdditionalSafety;
+  }
+  public function setFoodPreparationAndServingAdditionalSafetyException($foodPreparationAndServingAdditionalSafetyException)
+  {
+    $this->foodPreparationAndServingAdditionalSafetyException = $foodPreparationAndServingAdditionalSafetyException;
+  }
+  public function getFoodPreparationAndServingAdditionalSafetyException()
+  {
+    return $this->foodPreparationAndServingAdditionalSafetyException;
+  }
+  public function setIndividualPackagedMeals($individualPackagedMeals)
+  {
+    $this->individualPackagedMeals = $individualPackagedMeals;
+  }
+  public function getIndividualPackagedMeals()
+  {
+    return $this->individualPackagedMeals;
+  }
+  public function setIndividualPackagedMealsException($individualPackagedMealsException)
+  {
+    $this->individualPackagedMealsException = $individualPackagedMealsException;
+  }
+  public function getIndividualPackagedMealsException()
+  {
+    return $this->individualPackagedMealsException;
+  }
+  public function setSingleUseFoodMenus($singleUseFoodMenus)
+  {
+    $this->singleUseFoodMenus = $singleUseFoodMenus;
+  }
+  public function getSingleUseFoodMenus()
+  {
+    return $this->singleUseFoodMenus;
+  }
+  public function setSingleUseFoodMenusException($singleUseFoodMenusException)
+  {
+    $this->singleUseFoodMenusException = $singleUseFoodMenusException;
+  }
+  public function getSingleUseFoodMenusException()
+  {
+    return $this->singleUseFoodMenusException;
+  }
+}
+
 class Google_Service_MyBusiness_Ingredient extends Google_Collection
 {
   protected $collection_key = 'labels';
@@ -4445,6 +6148,50 @@ class Google_Service_MyBusiness_Ingredient extends Google_Collection
   public function getLabels()
   {
     return $this->labels;
+  }
+}
+
+class Google_Service_MyBusiness_InsuranceNetwork extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $networkId;
+  public $networkNames;
+  public $payerNames;
+  public $state;
+
+
+  public function setNetworkId($networkId)
+  {
+    $this->networkId = $networkId;
+  }
+  public function getNetworkId()
+  {
+    return $this->networkId;
+  }
+  public function setNetworkNames($networkNames)
+  {
+    $this->networkNames = $networkNames;
+  }
+  public function getNetworkNames()
+  {
+    return $this->networkNames;
+  }
+  public function setPayerNames($payerNames)
+  {
+    $this->payerNames = $payerNames;
+  }
+  public function getPayerNames()
+  {
+    return $this->payerNames;
+  }
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  public function getState()
+  {
+    return $this->state;
   }
 }
 
@@ -4564,6 +6311,320 @@ class Google_Service_MyBusiness_Label extends Google_Model
   public function getLanguageCode()
   {
     return $this->languageCode;
+  }
+}
+
+class Google_Service_MyBusiness_LanguagesSpoken extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $arabicSpoken;
+  public $arabicSpokenException;
+  public $cantoneseSpoken;
+  public $cantoneseSpokenException;
+  public $dutchSpoken;
+  public $dutchSpokenException;
+  public $englishSpoken;
+  public $englishSpokenException;
+  public $filipinoSpoken;
+  public $filipinoSpokenException;
+  public $frenchSpoken;
+  public $frenchSpokenException;
+  public $germanSpoken;
+  public $germanSpokenException;
+  public $hindiSpoken;
+  public $hindiSpokenException;
+  public $indonesianSpoken;
+  public $indonesianSpokenException;
+  public $italianSpoken;
+  public $italianSpokenException;
+  public $japaneseSpoken;
+  public $japaneseSpokenException;
+  public $koreanSpoken;
+  public $koreanSpokenException;
+  public $mandarinSpoken;
+  public $mandarinSpokenException;
+  public $portugueseSpoken;
+  public $portugueseSpokenException;
+  public $russianSpoken;
+  public $russianSpokenException;
+  public $spanishSpoken;
+  public $spanishSpokenException;
+  public $vietnameseSpoken;
+  public $vietnameseSpokenException;
+
+
+  public function setArabicSpoken($arabicSpoken)
+  {
+    $this->arabicSpoken = $arabicSpoken;
+  }
+  public function getArabicSpoken()
+  {
+    return $this->arabicSpoken;
+  }
+  public function setArabicSpokenException($arabicSpokenException)
+  {
+    $this->arabicSpokenException = $arabicSpokenException;
+  }
+  public function getArabicSpokenException()
+  {
+    return $this->arabicSpokenException;
+  }
+  public function setCantoneseSpoken($cantoneseSpoken)
+  {
+    $this->cantoneseSpoken = $cantoneseSpoken;
+  }
+  public function getCantoneseSpoken()
+  {
+    return $this->cantoneseSpoken;
+  }
+  public function setCantoneseSpokenException($cantoneseSpokenException)
+  {
+    $this->cantoneseSpokenException = $cantoneseSpokenException;
+  }
+  public function getCantoneseSpokenException()
+  {
+    return $this->cantoneseSpokenException;
+  }
+  public function setDutchSpoken($dutchSpoken)
+  {
+    $this->dutchSpoken = $dutchSpoken;
+  }
+  public function getDutchSpoken()
+  {
+    return $this->dutchSpoken;
+  }
+  public function setDutchSpokenException($dutchSpokenException)
+  {
+    $this->dutchSpokenException = $dutchSpokenException;
+  }
+  public function getDutchSpokenException()
+  {
+    return $this->dutchSpokenException;
+  }
+  public function setEnglishSpoken($englishSpoken)
+  {
+    $this->englishSpoken = $englishSpoken;
+  }
+  public function getEnglishSpoken()
+  {
+    return $this->englishSpoken;
+  }
+  public function setEnglishSpokenException($englishSpokenException)
+  {
+    $this->englishSpokenException = $englishSpokenException;
+  }
+  public function getEnglishSpokenException()
+  {
+    return $this->englishSpokenException;
+  }
+  public function setFilipinoSpoken($filipinoSpoken)
+  {
+    $this->filipinoSpoken = $filipinoSpoken;
+  }
+  public function getFilipinoSpoken()
+  {
+    return $this->filipinoSpoken;
+  }
+  public function setFilipinoSpokenException($filipinoSpokenException)
+  {
+    $this->filipinoSpokenException = $filipinoSpokenException;
+  }
+  public function getFilipinoSpokenException()
+  {
+    return $this->filipinoSpokenException;
+  }
+  public function setFrenchSpoken($frenchSpoken)
+  {
+    $this->frenchSpoken = $frenchSpoken;
+  }
+  public function getFrenchSpoken()
+  {
+    return $this->frenchSpoken;
+  }
+  public function setFrenchSpokenException($frenchSpokenException)
+  {
+    $this->frenchSpokenException = $frenchSpokenException;
+  }
+  public function getFrenchSpokenException()
+  {
+    return $this->frenchSpokenException;
+  }
+  public function setGermanSpoken($germanSpoken)
+  {
+    $this->germanSpoken = $germanSpoken;
+  }
+  public function getGermanSpoken()
+  {
+    return $this->germanSpoken;
+  }
+  public function setGermanSpokenException($germanSpokenException)
+  {
+    $this->germanSpokenException = $germanSpokenException;
+  }
+  public function getGermanSpokenException()
+  {
+    return $this->germanSpokenException;
+  }
+  public function setHindiSpoken($hindiSpoken)
+  {
+    $this->hindiSpoken = $hindiSpoken;
+  }
+  public function getHindiSpoken()
+  {
+    return $this->hindiSpoken;
+  }
+  public function setHindiSpokenException($hindiSpokenException)
+  {
+    $this->hindiSpokenException = $hindiSpokenException;
+  }
+  public function getHindiSpokenException()
+  {
+    return $this->hindiSpokenException;
+  }
+  public function setIndonesianSpoken($indonesianSpoken)
+  {
+    $this->indonesianSpoken = $indonesianSpoken;
+  }
+  public function getIndonesianSpoken()
+  {
+    return $this->indonesianSpoken;
+  }
+  public function setIndonesianSpokenException($indonesianSpokenException)
+  {
+    $this->indonesianSpokenException = $indonesianSpokenException;
+  }
+  public function getIndonesianSpokenException()
+  {
+    return $this->indonesianSpokenException;
+  }
+  public function setItalianSpoken($italianSpoken)
+  {
+    $this->italianSpoken = $italianSpoken;
+  }
+  public function getItalianSpoken()
+  {
+    return $this->italianSpoken;
+  }
+  public function setItalianSpokenException($italianSpokenException)
+  {
+    $this->italianSpokenException = $italianSpokenException;
+  }
+  public function getItalianSpokenException()
+  {
+    return $this->italianSpokenException;
+  }
+  public function setJapaneseSpoken($japaneseSpoken)
+  {
+    $this->japaneseSpoken = $japaneseSpoken;
+  }
+  public function getJapaneseSpoken()
+  {
+    return $this->japaneseSpoken;
+  }
+  public function setJapaneseSpokenException($japaneseSpokenException)
+  {
+    $this->japaneseSpokenException = $japaneseSpokenException;
+  }
+  public function getJapaneseSpokenException()
+  {
+    return $this->japaneseSpokenException;
+  }
+  public function setKoreanSpoken($koreanSpoken)
+  {
+    $this->koreanSpoken = $koreanSpoken;
+  }
+  public function getKoreanSpoken()
+  {
+    return $this->koreanSpoken;
+  }
+  public function setKoreanSpokenException($koreanSpokenException)
+  {
+    $this->koreanSpokenException = $koreanSpokenException;
+  }
+  public function getKoreanSpokenException()
+  {
+    return $this->koreanSpokenException;
+  }
+  public function setMandarinSpoken($mandarinSpoken)
+  {
+    $this->mandarinSpoken = $mandarinSpoken;
+  }
+  public function getMandarinSpoken()
+  {
+    return $this->mandarinSpoken;
+  }
+  public function setMandarinSpokenException($mandarinSpokenException)
+  {
+    $this->mandarinSpokenException = $mandarinSpokenException;
+  }
+  public function getMandarinSpokenException()
+  {
+    return $this->mandarinSpokenException;
+  }
+  public function setPortugueseSpoken($portugueseSpoken)
+  {
+    $this->portugueseSpoken = $portugueseSpoken;
+  }
+  public function getPortugueseSpoken()
+  {
+    return $this->portugueseSpoken;
+  }
+  public function setPortugueseSpokenException($portugueseSpokenException)
+  {
+    $this->portugueseSpokenException = $portugueseSpokenException;
+  }
+  public function getPortugueseSpokenException()
+  {
+    return $this->portugueseSpokenException;
+  }
+  public function setRussianSpoken($russianSpoken)
+  {
+    $this->russianSpoken = $russianSpoken;
+  }
+  public function getRussianSpoken()
+  {
+    return $this->russianSpoken;
+  }
+  public function setRussianSpokenException($russianSpokenException)
+  {
+    $this->russianSpokenException = $russianSpokenException;
+  }
+  public function getRussianSpokenException()
+  {
+    return $this->russianSpokenException;
+  }
+  public function setSpanishSpoken($spanishSpoken)
+  {
+    $this->spanishSpoken = $spanishSpoken;
+  }
+  public function getSpanishSpoken()
+  {
+    return $this->spanishSpoken;
+  }
+  public function setSpanishSpokenException($spanishSpokenException)
+  {
+    $this->spanishSpokenException = $spanishSpokenException;
+  }
+  public function getSpanishSpokenException()
+  {
+    return $this->spanishSpokenException;
+  }
+  public function setVietnameseSpoken($vietnameseSpoken)
+  {
+    $this->vietnameseSpoken = $vietnameseSpoken;
+  }
+  public function getVietnameseSpoken()
+  {
+    return $this->vietnameseSpoken;
+  }
+  public function setVietnameseSpokenException($vietnameseSpokenException)
+  {
+    $this->vietnameseSpokenException = $vietnameseSpokenException;
+  }
+  public function getVietnameseSpokenException()
+  {
+    return $this->vietnameseSpokenException;
   }
 }
 
@@ -4776,6 +6837,34 @@ class Google_Service_MyBusiness_ListCustomerMediaItemsResponse extends Google_Co
   public function getTotalMediaItemCount()
   {
     return $this->totalMediaItemCount;
+  }
+}
+
+class Google_Service_MyBusiness_ListInsuranceNetworksResponse extends Google_Collection
+{
+  protected $collection_key = 'networks';
+  protected $internal_gapi_mappings = array(
+  );
+  protected $networksType = 'Google_Service_MyBusiness_InsuranceNetwork';
+  protected $networksDataType = 'array';
+  public $nextPageToken;
+
+
+  public function setNetworks($networks)
+  {
+    $this->networks = $networks;
+  }
+  public function getNetworks()
+  {
+    return $this->networks;
+  }
+  public function setNextPageToken($nextPageToken)
+  {
+    $this->nextPageToken = $nextPageToken;
+  }
+  public function getNextPageToken()
+  {
+    return $this->nextPageToken;
   }
 }
 
@@ -5064,6 +7153,1256 @@ class Google_Service_MyBusiness_ListVerificationsResponse extends Google_Collect
   public function getVerifications()
   {
     return $this->verifications;
+  }
+}
+
+class Google_Service_MyBusiness_LivingArea extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  protected $accessibilityType = 'Google_Service_MyBusiness_LivingAreaAccessibility';
+  protected $accessibilityDataType = '';
+  protected $eatingType = 'Google_Service_MyBusiness_LivingAreaEating';
+  protected $eatingDataType = '';
+  protected $featuresType = 'Google_Service_MyBusiness_LivingAreaFeatures';
+  protected $featuresDataType = '';
+  protected $layoutType = 'Google_Service_MyBusiness_LivingAreaLayout';
+  protected $layoutDataType = '';
+  protected $sleepingType = 'Google_Service_MyBusiness_LivingAreaSleeping';
+  protected $sleepingDataType = '';
+
+
+  public function setAccessibility(Google_Service_MyBusiness_LivingAreaAccessibility $accessibility)
+  {
+    $this->accessibility = $accessibility;
+  }
+  public function getAccessibility()
+  {
+    return $this->accessibility;
+  }
+  public function setEating(Google_Service_MyBusiness_LivingAreaEating $eating)
+  {
+    $this->eating = $eating;
+  }
+  public function getEating()
+  {
+    return $this->eating;
+  }
+  public function setFeatures(Google_Service_MyBusiness_LivingAreaFeatures $features)
+  {
+    $this->features = $features;
+  }
+  public function getFeatures()
+  {
+    return $this->features;
+  }
+  public function setLayout(Google_Service_MyBusiness_LivingAreaLayout $layout)
+  {
+    $this->layout = $layout;
+  }
+  public function getLayout()
+  {
+    return $this->layout;
+  }
+  public function setSleeping(Google_Service_MyBusiness_LivingAreaSleeping $sleeping)
+  {
+    $this->sleeping = $sleeping;
+  }
+  public function getSleeping()
+  {
+    return $this->sleeping;
+  }
+}
+
+class Google_Service_MyBusiness_LivingAreaAccessibility extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $adaCompliantUnit;
+  public $adaCompliantUnitException;
+  public $hearingAccessibleDoorbell;
+  public $hearingAccessibleDoorbellException;
+  public $hearingAccessibleFireAlarm;
+  public $hearingAccessibleFireAlarmException;
+  public $hearingAccessibleUnit;
+  public $hearingAccessibleUnitException;
+  public $mobilityAccessibleBathtub;
+  public $mobilityAccessibleBathtubException;
+  public $mobilityAccessibleShower;
+  public $mobilityAccessibleShowerException;
+  public $mobilityAccessibleToilet;
+  public $mobilityAccessibleToiletException;
+  public $mobilityAccessibleUnit;
+  public $mobilityAccessibleUnitException;
+
+
+  public function setAdaCompliantUnit($adaCompliantUnit)
+  {
+    $this->adaCompliantUnit = $adaCompliantUnit;
+  }
+  public function getAdaCompliantUnit()
+  {
+    return $this->adaCompliantUnit;
+  }
+  public function setAdaCompliantUnitException($adaCompliantUnitException)
+  {
+    $this->adaCompliantUnitException = $adaCompliantUnitException;
+  }
+  public function getAdaCompliantUnitException()
+  {
+    return $this->adaCompliantUnitException;
+  }
+  public function setHearingAccessibleDoorbell($hearingAccessibleDoorbell)
+  {
+    $this->hearingAccessibleDoorbell = $hearingAccessibleDoorbell;
+  }
+  public function getHearingAccessibleDoorbell()
+  {
+    return $this->hearingAccessibleDoorbell;
+  }
+  public function setHearingAccessibleDoorbellException($hearingAccessibleDoorbellException)
+  {
+    $this->hearingAccessibleDoorbellException = $hearingAccessibleDoorbellException;
+  }
+  public function getHearingAccessibleDoorbellException()
+  {
+    return $this->hearingAccessibleDoorbellException;
+  }
+  public function setHearingAccessibleFireAlarm($hearingAccessibleFireAlarm)
+  {
+    $this->hearingAccessibleFireAlarm = $hearingAccessibleFireAlarm;
+  }
+  public function getHearingAccessibleFireAlarm()
+  {
+    return $this->hearingAccessibleFireAlarm;
+  }
+  public function setHearingAccessibleFireAlarmException($hearingAccessibleFireAlarmException)
+  {
+    $this->hearingAccessibleFireAlarmException = $hearingAccessibleFireAlarmException;
+  }
+  public function getHearingAccessibleFireAlarmException()
+  {
+    return $this->hearingAccessibleFireAlarmException;
+  }
+  public function setHearingAccessibleUnit($hearingAccessibleUnit)
+  {
+    $this->hearingAccessibleUnit = $hearingAccessibleUnit;
+  }
+  public function getHearingAccessibleUnit()
+  {
+    return $this->hearingAccessibleUnit;
+  }
+  public function setHearingAccessibleUnitException($hearingAccessibleUnitException)
+  {
+    $this->hearingAccessibleUnitException = $hearingAccessibleUnitException;
+  }
+  public function getHearingAccessibleUnitException()
+  {
+    return $this->hearingAccessibleUnitException;
+  }
+  public function setMobilityAccessibleBathtub($mobilityAccessibleBathtub)
+  {
+    $this->mobilityAccessibleBathtub = $mobilityAccessibleBathtub;
+  }
+  public function getMobilityAccessibleBathtub()
+  {
+    return $this->mobilityAccessibleBathtub;
+  }
+  public function setMobilityAccessibleBathtubException($mobilityAccessibleBathtubException)
+  {
+    $this->mobilityAccessibleBathtubException = $mobilityAccessibleBathtubException;
+  }
+  public function getMobilityAccessibleBathtubException()
+  {
+    return $this->mobilityAccessibleBathtubException;
+  }
+  public function setMobilityAccessibleShower($mobilityAccessibleShower)
+  {
+    $this->mobilityAccessibleShower = $mobilityAccessibleShower;
+  }
+  public function getMobilityAccessibleShower()
+  {
+    return $this->mobilityAccessibleShower;
+  }
+  public function setMobilityAccessibleShowerException($mobilityAccessibleShowerException)
+  {
+    $this->mobilityAccessibleShowerException = $mobilityAccessibleShowerException;
+  }
+  public function getMobilityAccessibleShowerException()
+  {
+    return $this->mobilityAccessibleShowerException;
+  }
+  public function setMobilityAccessibleToilet($mobilityAccessibleToilet)
+  {
+    $this->mobilityAccessibleToilet = $mobilityAccessibleToilet;
+  }
+  public function getMobilityAccessibleToilet()
+  {
+    return $this->mobilityAccessibleToilet;
+  }
+  public function setMobilityAccessibleToiletException($mobilityAccessibleToiletException)
+  {
+    $this->mobilityAccessibleToiletException = $mobilityAccessibleToiletException;
+  }
+  public function getMobilityAccessibleToiletException()
+  {
+    return $this->mobilityAccessibleToiletException;
+  }
+  public function setMobilityAccessibleUnit($mobilityAccessibleUnit)
+  {
+    $this->mobilityAccessibleUnit = $mobilityAccessibleUnit;
+  }
+  public function getMobilityAccessibleUnit()
+  {
+    return $this->mobilityAccessibleUnit;
+  }
+  public function setMobilityAccessibleUnitException($mobilityAccessibleUnitException)
+  {
+    $this->mobilityAccessibleUnitException = $mobilityAccessibleUnitException;
+  }
+  public function getMobilityAccessibleUnitException()
+  {
+    return $this->mobilityAccessibleUnitException;
+  }
+}
+
+class Google_Service_MyBusiness_LivingAreaEating extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $coffeeMaker;
+  public $coffeeMakerException;
+  public $cookware;
+  public $cookwareException;
+  public $dishwasher;
+  public $dishwasherException;
+  public $indoorGrill;
+  public $indoorGrillException;
+  public $kettle;
+  public $kettleException;
+  public $kitchenAvailable;
+  public $kitchenAvailableException;
+  public $microwave;
+  public $microwaveException;
+  public $minibar;
+  public $minibarException;
+  public $outdoorGrill;
+  public $outdoorGrillException;
+  public $oven;
+  public $ovenException;
+  public $refrigerator;
+  public $refrigeratorException;
+  public $sink;
+  public $sinkException;
+  public $snackbar;
+  public $snackbarException;
+  public $stove;
+  public $stoveException;
+  public $teaStation;
+  public $teaStationException;
+  public $toaster;
+  public $toasterException;
+
+
+  public function setCoffeeMaker($coffeeMaker)
+  {
+    $this->coffeeMaker = $coffeeMaker;
+  }
+  public function getCoffeeMaker()
+  {
+    return $this->coffeeMaker;
+  }
+  public function setCoffeeMakerException($coffeeMakerException)
+  {
+    $this->coffeeMakerException = $coffeeMakerException;
+  }
+  public function getCoffeeMakerException()
+  {
+    return $this->coffeeMakerException;
+  }
+  public function setCookware($cookware)
+  {
+    $this->cookware = $cookware;
+  }
+  public function getCookware()
+  {
+    return $this->cookware;
+  }
+  public function setCookwareException($cookwareException)
+  {
+    $this->cookwareException = $cookwareException;
+  }
+  public function getCookwareException()
+  {
+    return $this->cookwareException;
+  }
+  public function setDishwasher($dishwasher)
+  {
+    $this->dishwasher = $dishwasher;
+  }
+  public function getDishwasher()
+  {
+    return $this->dishwasher;
+  }
+  public function setDishwasherException($dishwasherException)
+  {
+    $this->dishwasherException = $dishwasherException;
+  }
+  public function getDishwasherException()
+  {
+    return $this->dishwasherException;
+  }
+  public function setIndoorGrill($indoorGrill)
+  {
+    $this->indoorGrill = $indoorGrill;
+  }
+  public function getIndoorGrill()
+  {
+    return $this->indoorGrill;
+  }
+  public function setIndoorGrillException($indoorGrillException)
+  {
+    $this->indoorGrillException = $indoorGrillException;
+  }
+  public function getIndoorGrillException()
+  {
+    return $this->indoorGrillException;
+  }
+  public function setKettle($kettle)
+  {
+    $this->kettle = $kettle;
+  }
+  public function getKettle()
+  {
+    return $this->kettle;
+  }
+  public function setKettleException($kettleException)
+  {
+    $this->kettleException = $kettleException;
+  }
+  public function getKettleException()
+  {
+    return $this->kettleException;
+  }
+  public function setKitchenAvailable($kitchenAvailable)
+  {
+    $this->kitchenAvailable = $kitchenAvailable;
+  }
+  public function getKitchenAvailable()
+  {
+    return $this->kitchenAvailable;
+  }
+  public function setKitchenAvailableException($kitchenAvailableException)
+  {
+    $this->kitchenAvailableException = $kitchenAvailableException;
+  }
+  public function getKitchenAvailableException()
+  {
+    return $this->kitchenAvailableException;
+  }
+  public function setMicrowave($microwave)
+  {
+    $this->microwave = $microwave;
+  }
+  public function getMicrowave()
+  {
+    return $this->microwave;
+  }
+  public function setMicrowaveException($microwaveException)
+  {
+    $this->microwaveException = $microwaveException;
+  }
+  public function getMicrowaveException()
+  {
+    return $this->microwaveException;
+  }
+  public function setMinibar($minibar)
+  {
+    $this->minibar = $minibar;
+  }
+  public function getMinibar()
+  {
+    return $this->minibar;
+  }
+  public function setMinibarException($minibarException)
+  {
+    $this->minibarException = $minibarException;
+  }
+  public function getMinibarException()
+  {
+    return $this->minibarException;
+  }
+  public function setOutdoorGrill($outdoorGrill)
+  {
+    $this->outdoorGrill = $outdoorGrill;
+  }
+  public function getOutdoorGrill()
+  {
+    return $this->outdoorGrill;
+  }
+  public function setOutdoorGrillException($outdoorGrillException)
+  {
+    $this->outdoorGrillException = $outdoorGrillException;
+  }
+  public function getOutdoorGrillException()
+  {
+    return $this->outdoorGrillException;
+  }
+  public function setOven($oven)
+  {
+    $this->oven = $oven;
+  }
+  public function getOven()
+  {
+    return $this->oven;
+  }
+  public function setOvenException($ovenException)
+  {
+    $this->ovenException = $ovenException;
+  }
+  public function getOvenException()
+  {
+    return $this->ovenException;
+  }
+  public function setRefrigerator($refrigerator)
+  {
+    $this->refrigerator = $refrigerator;
+  }
+  public function getRefrigerator()
+  {
+    return $this->refrigerator;
+  }
+  public function setRefrigeratorException($refrigeratorException)
+  {
+    $this->refrigeratorException = $refrigeratorException;
+  }
+  public function getRefrigeratorException()
+  {
+    return $this->refrigeratorException;
+  }
+  public function setSink($sink)
+  {
+    $this->sink = $sink;
+  }
+  public function getSink()
+  {
+    return $this->sink;
+  }
+  public function setSinkException($sinkException)
+  {
+    $this->sinkException = $sinkException;
+  }
+  public function getSinkException()
+  {
+    return $this->sinkException;
+  }
+  public function setSnackbar($snackbar)
+  {
+    $this->snackbar = $snackbar;
+  }
+  public function getSnackbar()
+  {
+    return $this->snackbar;
+  }
+  public function setSnackbarException($snackbarException)
+  {
+    $this->snackbarException = $snackbarException;
+  }
+  public function getSnackbarException()
+  {
+    return $this->snackbarException;
+  }
+  public function setStove($stove)
+  {
+    $this->stove = $stove;
+  }
+  public function getStove()
+  {
+    return $this->stove;
+  }
+  public function setStoveException($stoveException)
+  {
+    $this->stoveException = $stoveException;
+  }
+  public function getStoveException()
+  {
+    return $this->stoveException;
+  }
+  public function setTeaStation($teaStation)
+  {
+    $this->teaStation = $teaStation;
+  }
+  public function getTeaStation()
+  {
+    return $this->teaStation;
+  }
+  public function setTeaStationException($teaStationException)
+  {
+    $this->teaStationException = $teaStationException;
+  }
+  public function getTeaStationException()
+  {
+    return $this->teaStationException;
+  }
+  public function setToaster($toaster)
+  {
+    $this->toaster = $toaster;
+  }
+  public function getToaster()
+  {
+    return $this->toaster;
+  }
+  public function setToasterException($toasterException)
+  {
+    $this->toasterException = $toasterException;
+  }
+  public function getToasterException()
+  {
+    return $this->toasterException;
+  }
+}
+
+class Google_Service_MyBusiness_LivingAreaFeatures extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $airConditioning;
+  public $airConditioningException;
+  public $bathtub;
+  public $bathtubException;
+  public $bidet;
+  public $bidetException;
+  public $dryer;
+  public $dryerException;
+  public $electronicRoomKey;
+  public $electronicRoomKeyException;
+  public $fireplace;
+  public $fireplaceException;
+  public $hairdryer;
+  public $hairdryerException;
+  public $heating;
+  public $heatingException;
+  public $inunitSafe;
+  public $inunitSafeException;
+  public $inunitWifiAvailable;
+  public $inunitWifiAvailableException;
+  public $ironingEquipment;
+  public $ironingEquipmentException;
+  public $payPerViewMovies;
+  public $payPerViewMoviesException;
+  public $privateBathroom;
+  public $privateBathroomException;
+  public $shower;
+  public $showerException;
+  public $toilet;
+  public $toiletException;
+  public $tv;
+  public $tvCasting;
+  public $tvCastingException;
+  public $tvException;
+  public $tvStreaming;
+  public $tvStreamingException;
+  public $universalPowerAdapters;
+  public $universalPowerAdaptersException;
+  public $washer;
+  public $washerException;
+
+
+  public function setAirConditioning($airConditioning)
+  {
+    $this->airConditioning = $airConditioning;
+  }
+  public function getAirConditioning()
+  {
+    return $this->airConditioning;
+  }
+  public function setAirConditioningException($airConditioningException)
+  {
+    $this->airConditioningException = $airConditioningException;
+  }
+  public function getAirConditioningException()
+  {
+    return $this->airConditioningException;
+  }
+  public function setBathtub($bathtub)
+  {
+    $this->bathtub = $bathtub;
+  }
+  public function getBathtub()
+  {
+    return $this->bathtub;
+  }
+  public function setBathtubException($bathtubException)
+  {
+    $this->bathtubException = $bathtubException;
+  }
+  public function getBathtubException()
+  {
+    return $this->bathtubException;
+  }
+  public function setBidet($bidet)
+  {
+    $this->bidet = $bidet;
+  }
+  public function getBidet()
+  {
+    return $this->bidet;
+  }
+  public function setBidetException($bidetException)
+  {
+    $this->bidetException = $bidetException;
+  }
+  public function getBidetException()
+  {
+    return $this->bidetException;
+  }
+  public function setDryer($dryer)
+  {
+    $this->dryer = $dryer;
+  }
+  public function getDryer()
+  {
+    return $this->dryer;
+  }
+  public function setDryerException($dryerException)
+  {
+    $this->dryerException = $dryerException;
+  }
+  public function getDryerException()
+  {
+    return $this->dryerException;
+  }
+  public function setElectronicRoomKey($electronicRoomKey)
+  {
+    $this->electronicRoomKey = $electronicRoomKey;
+  }
+  public function getElectronicRoomKey()
+  {
+    return $this->electronicRoomKey;
+  }
+  public function setElectronicRoomKeyException($electronicRoomKeyException)
+  {
+    $this->electronicRoomKeyException = $electronicRoomKeyException;
+  }
+  public function getElectronicRoomKeyException()
+  {
+    return $this->electronicRoomKeyException;
+  }
+  public function setFireplace($fireplace)
+  {
+    $this->fireplace = $fireplace;
+  }
+  public function getFireplace()
+  {
+    return $this->fireplace;
+  }
+  public function setFireplaceException($fireplaceException)
+  {
+    $this->fireplaceException = $fireplaceException;
+  }
+  public function getFireplaceException()
+  {
+    return $this->fireplaceException;
+  }
+  public function setHairdryer($hairdryer)
+  {
+    $this->hairdryer = $hairdryer;
+  }
+  public function getHairdryer()
+  {
+    return $this->hairdryer;
+  }
+  public function setHairdryerException($hairdryerException)
+  {
+    $this->hairdryerException = $hairdryerException;
+  }
+  public function getHairdryerException()
+  {
+    return $this->hairdryerException;
+  }
+  public function setHeating($heating)
+  {
+    $this->heating = $heating;
+  }
+  public function getHeating()
+  {
+    return $this->heating;
+  }
+  public function setHeatingException($heatingException)
+  {
+    $this->heatingException = $heatingException;
+  }
+  public function getHeatingException()
+  {
+    return $this->heatingException;
+  }
+  public function setInunitSafe($inunitSafe)
+  {
+    $this->inunitSafe = $inunitSafe;
+  }
+  public function getInunitSafe()
+  {
+    return $this->inunitSafe;
+  }
+  public function setInunitSafeException($inunitSafeException)
+  {
+    $this->inunitSafeException = $inunitSafeException;
+  }
+  public function getInunitSafeException()
+  {
+    return $this->inunitSafeException;
+  }
+  public function setInunitWifiAvailable($inunitWifiAvailable)
+  {
+    $this->inunitWifiAvailable = $inunitWifiAvailable;
+  }
+  public function getInunitWifiAvailable()
+  {
+    return $this->inunitWifiAvailable;
+  }
+  public function setInunitWifiAvailableException($inunitWifiAvailableException)
+  {
+    $this->inunitWifiAvailableException = $inunitWifiAvailableException;
+  }
+  public function getInunitWifiAvailableException()
+  {
+    return $this->inunitWifiAvailableException;
+  }
+  public function setIroningEquipment($ironingEquipment)
+  {
+    $this->ironingEquipment = $ironingEquipment;
+  }
+  public function getIroningEquipment()
+  {
+    return $this->ironingEquipment;
+  }
+  public function setIroningEquipmentException($ironingEquipmentException)
+  {
+    $this->ironingEquipmentException = $ironingEquipmentException;
+  }
+  public function getIroningEquipmentException()
+  {
+    return $this->ironingEquipmentException;
+  }
+  public function setPayPerViewMovies($payPerViewMovies)
+  {
+    $this->payPerViewMovies = $payPerViewMovies;
+  }
+  public function getPayPerViewMovies()
+  {
+    return $this->payPerViewMovies;
+  }
+  public function setPayPerViewMoviesException($payPerViewMoviesException)
+  {
+    $this->payPerViewMoviesException = $payPerViewMoviesException;
+  }
+  public function getPayPerViewMoviesException()
+  {
+    return $this->payPerViewMoviesException;
+  }
+  public function setPrivateBathroom($privateBathroom)
+  {
+    $this->privateBathroom = $privateBathroom;
+  }
+  public function getPrivateBathroom()
+  {
+    return $this->privateBathroom;
+  }
+  public function setPrivateBathroomException($privateBathroomException)
+  {
+    $this->privateBathroomException = $privateBathroomException;
+  }
+  public function getPrivateBathroomException()
+  {
+    return $this->privateBathroomException;
+  }
+  public function setShower($shower)
+  {
+    $this->shower = $shower;
+  }
+  public function getShower()
+  {
+    return $this->shower;
+  }
+  public function setShowerException($showerException)
+  {
+    $this->showerException = $showerException;
+  }
+  public function getShowerException()
+  {
+    return $this->showerException;
+  }
+  public function setToilet($toilet)
+  {
+    $this->toilet = $toilet;
+  }
+  public function getToilet()
+  {
+    return $this->toilet;
+  }
+  public function setToiletException($toiletException)
+  {
+    $this->toiletException = $toiletException;
+  }
+  public function getToiletException()
+  {
+    return $this->toiletException;
+  }
+  public function setTv($tv)
+  {
+    $this->tv = $tv;
+  }
+  public function getTv()
+  {
+    return $this->tv;
+  }
+  public function setTvCasting($tvCasting)
+  {
+    $this->tvCasting = $tvCasting;
+  }
+  public function getTvCasting()
+  {
+    return $this->tvCasting;
+  }
+  public function setTvCastingException($tvCastingException)
+  {
+    $this->tvCastingException = $tvCastingException;
+  }
+  public function getTvCastingException()
+  {
+    return $this->tvCastingException;
+  }
+  public function setTvException($tvException)
+  {
+    $this->tvException = $tvException;
+  }
+  public function getTvException()
+  {
+    return $this->tvException;
+  }
+  public function setTvStreaming($tvStreaming)
+  {
+    $this->tvStreaming = $tvStreaming;
+  }
+  public function getTvStreaming()
+  {
+    return $this->tvStreaming;
+  }
+  public function setTvStreamingException($tvStreamingException)
+  {
+    $this->tvStreamingException = $tvStreamingException;
+  }
+  public function getTvStreamingException()
+  {
+    return $this->tvStreamingException;
+  }
+  public function setUniversalPowerAdapters($universalPowerAdapters)
+  {
+    $this->universalPowerAdapters = $universalPowerAdapters;
+  }
+  public function getUniversalPowerAdapters()
+  {
+    return $this->universalPowerAdapters;
+  }
+  public function setUniversalPowerAdaptersException($universalPowerAdaptersException)
+  {
+    $this->universalPowerAdaptersException = $universalPowerAdaptersException;
+  }
+  public function getUniversalPowerAdaptersException()
+  {
+    return $this->universalPowerAdaptersException;
+  }
+  public function setWasher($washer)
+  {
+    $this->washer = $washer;
+  }
+  public function getWasher()
+  {
+    return $this->washer;
+  }
+  public function setWasherException($washerException)
+  {
+    $this->washerException = $washerException;
+  }
+  public function getWasherException()
+  {
+    return $this->washerException;
+  }
+}
+
+class Google_Service_MyBusiness_LivingAreaLayout extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $balcony;
+  public $balconyException;
+  public $livingAreaSqMeters;
+  public $livingAreaSqMetersException;
+  public $loft;
+  public $loftException;
+  public $nonSmoking;
+  public $nonSmokingException;
+  public $patio;
+  public $patioException;
+  public $stairs;
+  public $stairsException;
+
+
+  public function setBalcony($balcony)
+  {
+    $this->balcony = $balcony;
+  }
+  public function getBalcony()
+  {
+    return $this->balcony;
+  }
+  public function setBalconyException($balconyException)
+  {
+    $this->balconyException = $balconyException;
+  }
+  public function getBalconyException()
+  {
+    return $this->balconyException;
+  }
+  public function setLivingAreaSqMeters($livingAreaSqMeters)
+  {
+    $this->livingAreaSqMeters = $livingAreaSqMeters;
+  }
+  public function getLivingAreaSqMeters()
+  {
+    return $this->livingAreaSqMeters;
+  }
+  public function setLivingAreaSqMetersException($livingAreaSqMetersException)
+  {
+    $this->livingAreaSqMetersException = $livingAreaSqMetersException;
+  }
+  public function getLivingAreaSqMetersException()
+  {
+    return $this->livingAreaSqMetersException;
+  }
+  public function setLoft($loft)
+  {
+    $this->loft = $loft;
+  }
+  public function getLoft()
+  {
+    return $this->loft;
+  }
+  public function setLoftException($loftException)
+  {
+    $this->loftException = $loftException;
+  }
+  public function getLoftException()
+  {
+    return $this->loftException;
+  }
+  public function setNonSmoking($nonSmoking)
+  {
+    $this->nonSmoking = $nonSmoking;
+  }
+  public function getNonSmoking()
+  {
+    return $this->nonSmoking;
+  }
+  public function setNonSmokingException($nonSmokingException)
+  {
+    $this->nonSmokingException = $nonSmokingException;
+  }
+  public function getNonSmokingException()
+  {
+    return $this->nonSmokingException;
+  }
+  public function setPatio($patio)
+  {
+    $this->patio = $patio;
+  }
+  public function getPatio()
+  {
+    return $this->patio;
+  }
+  public function setPatioException($patioException)
+  {
+    $this->patioException = $patioException;
+  }
+  public function getPatioException()
+  {
+    return $this->patioException;
+  }
+  public function setStairs($stairs)
+  {
+    $this->stairs = $stairs;
+  }
+  public function getStairs()
+  {
+    return $this->stairs;
+  }
+  public function setStairsException($stairsException)
+  {
+    $this->stairsException = $stairsException;
+  }
+  public function getStairsException()
+  {
+    return $this->stairsException;
+  }
+}
+
+class Google_Service_MyBusiness_LivingAreaSleeping extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $bedsCount;
+  public $bedsCountException;
+  public $bunkBedsCount;
+  public $bunkBedsCountException;
+  public $cribsCount;
+  public $cribsCountException;
+  public $doubleBedsCount;
+  public $doubleBedsCountException;
+  public $featherPillows;
+  public $featherPillowsException;
+  public $hypoallergenicBedding;
+  public $hypoallergenicBeddingException;
+  public $kingBedsCount;
+  public $kingBedsCountException;
+  public $memoryFoamPillows;
+  public $memoryFoamPillowsException;
+  public $otherBedsCount;
+  public $otherBedsCountException;
+  public $queenBedsCount;
+  public $queenBedsCountException;
+  public $rollAwayBedsCount;
+  public $rollAwayBedsCountException;
+  public $singleOrTwinBedsCount;
+  public $singleOrTwinBedsCountException;
+  public $sofaBedsCount;
+  public $sofaBedsCountException;
+  public $syntheticPillows;
+  public $syntheticPillowsException;
+
+
+  public function setBedsCount($bedsCount)
+  {
+    $this->bedsCount = $bedsCount;
+  }
+  public function getBedsCount()
+  {
+    return $this->bedsCount;
+  }
+  public function setBedsCountException($bedsCountException)
+  {
+    $this->bedsCountException = $bedsCountException;
+  }
+  public function getBedsCountException()
+  {
+    return $this->bedsCountException;
+  }
+  public function setBunkBedsCount($bunkBedsCount)
+  {
+    $this->bunkBedsCount = $bunkBedsCount;
+  }
+  public function getBunkBedsCount()
+  {
+    return $this->bunkBedsCount;
+  }
+  public function setBunkBedsCountException($bunkBedsCountException)
+  {
+    $this->bunkBedsCountException = $bunkBedsCountException;
+  }
+  public function getBunkBedsCountException()
+  {
+    return $this->bunkBedsCountException;
+  }
+  public function setCribsCount($cribsCount)
+  {
+    $this->cribsCount = $cribsCount;
+  }
+  public function getCribsCount()
+  {
+    return $this->cribsCount;
+  }
+  public function setCribsCountException($cribsCountException)
+  {
+    $this->cribsCountException = $cribsCountException;
+  }
+  public function getCribsCountException()
+  {
+    return $this->cribsCountException;
+  }
+  public function setDoubleBedsCount($doubleBedsCount)
+  {
+    $this->doubleBedsCount = $doubleBedsCount;
+  }
+  public function getDoubleBedsCount()
+  {
+    return $this->doubleBedsCount;
+  }
+  public function setDoubleBedsCountException($doubleBedsCountException)
+  {
+    $this->doubleBedsCountException = $doubleBedsCountException;
+  }
+  public function getDoubleBedsCountException()
+  {
+    return $this->doubleBedsCountException;
+  }
+  public function setFeatherPillows($featherPillows)
+  {
+    $this->featherPillows = $featherPillows;
+  }
+  public function getFeatherPillows()
+  {
+    return $this->featherPillows;
+  }
+  public function setFeatherPillowsException($featherPillowsException)
+  {
+    $this->featherPillowsException = $featherPillowsException;
+  }
+  public function getFeatherPillowsException()
+  {
+    return $this->featherPillowsException;
+  }
+  public function setHypoallergenicBedding($hypoallergenicBedding)
+  {
+    $this->hypoallergenicBedding = $hypoallergenicBedding;
+  }
+  public function getHypoallergenicBedding()
+  {
+    return $this->hypoallergenicBedding;
+  }
+  public function setHypoallergenicBeddingException($hypoallergenicBeddingException)
+  {
+    $this->hypoallergenicBeddingException = $hypoallergenicBeddingException;
+  }
+  public function getHypoallergenicBeddingException()
+  {
+    return $this->hypoallergenicBeddingException;
+  }
+  public function setKingBedsCount($kingBedsCount)
+  {
+    $this->kingBedsCount = $kingBedsCount;
+  }
+  public function getKingBedsCount()
+  {
+    return $this->kingBedsCount;
+  }
+  public function setKingBedsCountException($kingBedsCountException)
+  {
+    $this->kingBedsCountException = $kingBedsCountException;
+  }
+  public function getKingBedsCountException()
+  {
+    return $this->kingBedsCountException;
+  }
+  public function setMemoryFoamPillows($memoryFoamPillows)
+  {
+    $this->memoryFoamPillows = $memoryFoamPillows;
+  }
+  public function getMemoryFoamPillows()
+  {
+    return $this->memoryFoamPillows;
+  }
+  public function setMemoryFoamPillowsException($memoryFoamPillowsException)
+  {
+    $this->memoryFoamPillowsException = $memoryFoamPillowsException;
+  }
+  public function getMemoryFoamPillowsException()
+  {
+    return $this->memoryFoamPillowsException;
+  }
+  public function setOtherBedsCount($otherBedsCount)
+  {
+    $this->otherBedsCount = $otherBedsCount;
+  }
+  public function getOtherBedsCount()
+  {
+    return $this->otherBedsCount;
+  }
+  public function setOtherBedsCountException($otherBedsCountException)
+  {
+    $this->otherBedsCountException = $otherBedsCountException;
+  }
+  public function getOtherBedsCountException()
+  {
+    return $this->otherBedsCountException;
+  }
+  public function setQueenBedsCount($queenBedsCount)
+  {
+    $this->queenBedsCount = $queenBedsCount;
+  }
+  public function getQueenBedsCount()
+  {
+    return $this->queenBedsCount;
+  }
+  public function setQueenBedsCountException($queenBedsCountException)
+  {
+    $this->queenBedsCountException = $queenBedsCountException;
+  }
+  public function getQueenBedsCountException()
+  {
+    return $this->queenBedsCountException;
+  }
+  public function setRollAwayBedsCount($rollAwayBedsCount)
+  {
+    $this->rollAwayBedsCount = $rollAwayBedsCount;
+  }
+  public function getRollAwayBedsCount()
+  {
+    return $this->rollAwayBedsCount;
+  }
+  public function setRollAwayBedsCountException($rollAwayBedsCountException)
+  {
+    $this->rollAwayBedsCountException = $rollAwayBedsCountException;
+  }
+  public function getRollAwayBedsCountException()
+  {
+    return $this->rollAwayBedsCountException;
+  }
+  public function setSingleOrTwinBedsCount($singleOrTwinBedsCount)
+  {
+    $this->singleOrTwinBedsCount = $singleOrTwinBedsCount;
+  }
+  public function getSingleOrTwinBedsCount()
+  {
+    return $this->singleOrTwinBedsCount;
+  }
+  public function setSingleOrTwinBedsCountException($singleOrTwinBedsCountException)
+  {
+    $this->singleOrTwinBedsCountException = $singleOrTwinBedsCountException;
+  }
+  public function getSingleOrTwinBedsCountException()
+  {
+    return $this->singleOrTwinBedsCountException;
+  }
+  public function setSofaBedsCount($sofaBedsCount)
+  {
+    $this->sofaBedsCount = $sofaBedsCount;
+  }
+  public function getSofaBedsCount()
+  {
+    return $this->sofaBedsCount;
+  }
+  public function setSofaBedsCountException($sofaBedsCountException)
+  {
+    $this->sofaBedsCountException = $sofaBedsCountException;
+  }
+  public function getSofaBedsCountException()
+  {
+    return $this->sofaBedsCountException;
+  }
+  public function setSyntheticPillows($syntheticPillows)
+  {
+    $this->syntheticPillows = $syntheticPillows;
+  }
+  public function getSyntheticPillows()
+  {
+    return $this->syntheticPillows;
+  }
+  public function setSyntheticPillowsException($syntheticPillowsException)
+  {
+    $this->syntheticPillowsException = $syntheticPillowsException;
+  }
+  public function getSyntheticPillowsException()
+  {
+    return $this->syntheticPillowsException;
   }
 }
 
@@ -5706,6 +9045,8 @@ class Google_Service_MyBusiness_LocationState extends Google_Model
   public $canDelete;
   public $canHaveFoodMenus;
   public $canModifyServiceList;
+  public $canOperateHealthData;
+  public $canOperateLodgingData;
   public $canUpdate;
   public $hasPendingEdits;
   public $hasPendingVerification;
@@ -5744,6 +9085,22 @@ class Google_Service_MyBusiness_LocationState extends Google_Model
   public function getCanModifyServiceList()
   {
     return $this->canModifyServiceList;
+  }
+  public function setCanOperateHealthData($canOperateHealthData)
+  {
+    $this->canOperateHealthData = $canOperateHealthData;
+  }
+  public function getCanOperateHealthData()
+  {
+    return $this->canOperateHealthData;
+  }
+  public function setCanOperateLodgingData($canOperateLodgingData)
+  {
+    $this->canOperateLodgingData = $canOperateLodgingData;
+  }
+  public function getCanOperateLodgingData()
+  {
+    return $this->canOperateLodgingData;
   }
   public function setCanUpdate($canUpdate)
   {
@@ -5848,6 +9205,251 @@ class Google_Service_MyBusiness_LocationState extends Google_Model
   public function getNeedsReverification()
   {
     return $this->needsReverification;
+  }
+}
+
+class Google_Service_MyBusiness_Lodging extends Google_Collection
+{
+  protected $collection_key = 'guestUnits';
+  protected $internal_gapi_mappings = array(
+  );
+  protected $accessibilityType = 'Google_Service_MyBusiness_Accessibility';
+  protected $accessibilityDataType = '';
+  protected $activitiesType = 'Google_Service_MyBusiness_Activities';
+  protected $activitiesDataType = '';
+  protected $allUnitsType = 'Google_Service_MyBusiness_GuestUnitFeatures';
+  protected $allUnitsDataType = '';
+  protected $businessType = 'Google_Service_MyBusiness_Business';
+  protected $businessDataType = '';
+  protected $commonLivingAreaType = 'Google_Service_MyBusiness_LivingArea';
+  protected $commonLivingAreaDataType = '';
+  protected $connectivityType = 'Google_Service_MyBusiness_Connectivity';
+  protected $connectivityDataType = '';
+  protected $familiesType = 'Google_Service_MyBusiness_Families';
+  protected $familiesDataType = '';
+  protected $foodAndDrinkType = 'Google_Service_MyBusiness_FoodAndDrink';
+  protected $foodAndDrinkDataType = '';
+  protected $guestUnitsType = 'Google_Service_MyBusiness_GuestUnitType';
+  protected $guestUnitsDataType = 'array';
+  protected $healthAndSafetyType = 'Google_Service_MyBusiness_HealthAndSafety';
+  protected $healthAndSafetyDataType = '';
+  protected $housekeepingType = 'Google_Service_MyBusiness_Housekeeping';
+  protected $housekeepingDataType = '';
+  protected $metadataType = 'Google_Service_MyBusiness_LodgingMetadata';
+  protected $metadataDataType = '';
+  public $name;
+  protected $parkingType = 'Google_Service_MyBusiness_Parking';
+  protected $parkingDataType = '';
+  protected $petsType = 'Google_Service_MyBusiness_Pets';
+  protected $petsDataType = '';
+  protected $policiesType = 'Google_Service_MyBusiness_Policies';
+  protected $policiesDataType = '';
+  protected $poolsType = 'Google_Service_MyBusiness_Pools';
+  protected $poolsDataType = '';
+  protected $propertyType = 'Google_Service_MyBusiness_Property';
+  protected $propertyDataType = '';
+  protected $servicesType = 'Google_Service_MyBusiness_Services';
+  protected $servicesDataType = '';
+  protected $someUnitsType = 'Google_Service_MyBusiness_GuestUnitFeatures';
+  protected $someUnitsDataType = '';
+  protected $transportationType = 'Google_Service_MyBusiness_Transportation';
+  protected $transportationDataType = '';
+  protected $wellnessType = 'Google_Service_MyBusiness_Wellness';
+  protected $wellnessDataType = '';
+
+
+  public function setAccessibility(Google_Service_MyBusiness_Accessibility $accessibility)
+  {
+    $this->accessibility = $accessibility;
+  }
+  public function getAccessibility()
+  {
+    return $this->accessibility;
+  }
+  public function setActivities(Google_Service_MyBusiness_Activities $activities)
+  {
+    $this->activities = $activities;
+  }
+  public function getActivities()
+  {
+    return $this->activities;
+  }
+  public function setAllUnits(Google_Service_MyBusiness_GuestUnitFeatures $allUnits)
+  {
+    $this->allUnits = $allUnits;
+  }
+  public function getAllUnits()
+  {
+    return $this->allUnits;
+  }
+  public function setBusiness(Google_Service_MyBusiness_Business $business)
+  {
+    $this->business = $business;
+  }
+  public function getBusiness()
+  {
+    return $this->business;
+  }
+  public function setCommonLivingArea(Google_Service_MyBusiness_LivingArea $commonLivingArea)
+  {
+    $this->commonLivingArea = $commonLivingArea;
+  }
+  public function getCommonLivingArea()
+  {
+    return $this->commonLivingArea;
+  }
+  public function setConnectivity(Google_Service_MyBusiness_Connectivity $connectivity)
+  {
+    $this->connectivity = $connectivity;
+  }
+  public function getConnectivity()
+  {
+    return $this->connectivity;
+  }
+  public function setFamilies(Google_Service_MyBusiness_Families $families)
+  {
+    $this->families = $families;
+  }
+  public function getFamilies()
+  {
+    return $this->families;
+  }
+  public function setFoodAndDrink(Google_Service_MyBusiness_FoodAndDrink $foodAndDrink)
+  {
+    $this->foodAndDrink = $foodAndDrink;
+  }
+  public function getFoodAndDrink()
+  {
+    return $this->foodAndDrink;
+  }
+  public function setGuestUnits($guestUnits)
+  {
+    $this->guestUnits = $guestUnits;
+  }
+  public function getGuestUnits()
+  {
+    return $this->guestUnits;
+  }
+  public function setHealthAndSafety(Google_Service_MyBusiness_HealthAndSafety $healthAndSafety)
+  {
+    $this->healthAndSafety = $healthAndSafety;
+  }
+  public function getHealthAndSafety()
+  {
+    return $this->healthAndSafety;
+  }
+  public function setHousekeeping(Google_Service_MyBusiness_Housekeeping $housekeeping)
+  {
+    $this->housekeeping = $housekeeping;
+  }
+  public function getHousekeeping()
+  {
+    return $this->housekeeping;
+  }
+  public function setMetadata(Google_Service_MyBusiness_LodgingMetadata $metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  public function getMetadata()
+  {
+    return $this->metadata;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
+  }
+  public function setParking(Google_Service_MyBusiness_Parking $parking)
+  {
+    $this->parking = $parking;
+  }
+  public function getParking()
+  {
+    return $this->parking;
+  }
+  public function setPets(Google_Service_MyBusiness_Pets $pets)
+  {
+    $this->pets = $pets;
+  }
+  public function getPets()
+  {
+    return $this->pets;
+  }
+  public function setPolicies(Google_Service_MyBusiness_Policies $policies)
+  {
+    $this->policies = $policies;
+  }
+  public function getPolicies()
+  {
+    return $this->policies;
+  }
+  public function setPools(Google_Service_MyBusiness_Pools $pools)
+  {
+    $this->pools = $pools;
+  }
+  public function getPools()
+  {
+    return $this->pools;
+  }
+  public function setProperty(Google_Service_MyBusiness_Property $property)
+  {
+    $this->property = $property;
+  }
+  public function getProperty()
+  {
+    return $this->property;
+  }
+  public function setServices(Google_Service_MyBusiness_Services $services)
+  {
+    $this->services = $services;
+  }
+  public function getServices()
+  {
+    return $this->services;
+  }
+  public function setSomeUnits(Google_Service_MyBusiness_GuestUnitFeatures $someUnits)
+  {
+    $this->someUnits = $someUnits;
+  }
+  public function getSomeUnits()
+  {
+    return $this->someUnits;
+  }
+  public function setTransportation(Google_Service_MyBusiness_Transportation $transportation)
+  {
+    $this->transportation = $transportation;
+  }
+  public function getTransportation()
+  {
+    return $this->transportation;
+  }
+  public function setWellness(Google_Service_MyBusiness_Wellness $wellness)
+  {
+    $this->wellness = $wellness;
+  }
+  public function getWellness()
+  {
+    return $this->wellness;
+  }
+}
+
+class Google_Service_MyBusiness_LodgingMetadata extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $updateTime;
+
+
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
   }
 }
 
@@ -6169,6 +9771,140 @@ class Google_Service_MyBusiness_MetricValue extends Google_Collection
   }
 }
 
+class Google_Service_MyBusiness_MinimizedContact extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $contactlessCheckinCheckout;
+  public $contactlessCheckinCheckoutException;
+  public $digitalGuestRoomKeys;
+  public $digitalGuestRoomKeysException;
+  public $housekeepingScheduledRequestOnly;
+  public $housekeepingScheduledRequestOnlyException;
+  public $noHighTouchItemsCommonAreas;
+  public $noHighTouchItemsCommonAreasException;
+  public $noHighTouchItemsGuestRooms;
+  public $noHighTouchItemsGuestRoomsException;
+  public $plasticKeycardsDisinfected;
+  public $plasticKeycardsDisinfectedException;
+  public $roomBookingsBuffer;
+  public $roomBookingsBufferException;
+
+
+  public function setContactlessCheckinCheckout($contactlessCheckinCheckout)
+  {
+    $this->contactlessCheckinCheckout = $contactlessCheckinCheckout;
+  }
+  public function getContactlessCheckinCheckout()
+  {
+    return $this->contactlessCheckinCheckout;
+  }
+  public function setContactlessCheckinCheckoutException($contactlessCheckinCheckoutException)
+  {
+    $this->contactlessCheckinCheckoutException = $contactlessCheckinCheckoutException;
+  }
+  public function getContactlessCheckinCheckoutException()
+  {
+    return $this->contactlessCheckinCheckoutException;
+  }
+  public function setDigitalGuestRoomKeys($digitalGuestRoomKeys)
+  {
+    $this->digitalGuestRoomKeys = $digitalGuestRoomKeys;
+  }
+  public function getDigitalGuestRoomKeys()
+  {
+    return $this->digitalGuestRoomKeys;
+  }
+  public function setDigitalGuestRoomKeysException($digitalGuestRoomKeysException)
+  {
+    $this->digitalGuestRoomKeysException = $digitalGuestRoomKeysException;
+  }
+  public function getDigitalGuestRoomKeysException()
+  {
+    return $this->digitalGuestRoomKeysException;
+  }
+  public function setHousekeepingScheduledRequestOnly($housekeepingScheduledRequestOnly)
+  {
+    $this->housekeepingScheduledRequestOnly = $housekeepingScheduledRequestOnly;
+  }
+  public function getHousekeepingScheduledRequestOnly()
+  {
+    return $this->housekeepingScheduledRequestOnly;
+  }
+  public function setHousekeepingScheduledRequestOnlyException($housekeepingScheduledRequestOnlyException)
+  {
+    $this->housekeepingScheduledRequestOnlyException = $housekeepingScheduledRequestOnlyException;
+  }
+  public function getHousekeepingScheduledRequestOnlyException()
+  {
+    return $this->housekeepingScheduledRequestOnlyException;
+  }
+  public function setNoHighTouchItemsCommonAreas($noHighTouchItemsCommonAreas)
+  {
+    $this->noHighTouchItemsCommonAreas = $noHighTouchItemsCommonAreas;
+  }
+  public function getNoHighTouchItemsCommonAreas()
+  {
+    return $this->noHighTouchItemsCommonAreas;
+  }
+  public function setNoHighTouchItemsCommonAreasException($noHighTouchItemsCommonAreasException)
+  {
+    $this->noHighTouchItemsCommonAreasException = $noHighTouchItemsCommonAreasException;
+  }
+  public function getNoHighTouchItemsCommonAreasException()
+  {
+    return $this->noHighTouchItemsCommonAreasException;
+  }
+  public function setNoHighTouchItemsGuestRooms($noHighTouchItemsGuestRooms)
+  {
+    $this->noHighTouchItemsGuestRooms = $noHighTouchItemsGuestRooms;
+  }
+  public function getNoHighTouchItemsGuestRooms()
+  {
+    return $this->noHighTouchItemsGuestRooms;
+  }
+  public function setNoHighTouchItemsGuestRoomsException($noHighTouchItemsGuestRoomsException)
+  {
+    $this->noHighTouchItemsGuestRoomsException = $noHighTouchItemsGuestRoomsException;
+  }
+  public function getNoHighTouchItemsGuestRoomsException()
+  {
+    return $this->noHighTouchItemsGuestRoomsException;
+  }
+  public function setPlasticKeycardsDisinfected($plasticKeycardsDisinfected)
+  {
+    $this->plasticKeycardsDisinfected = $plasticKeycardsDisinfected;
+  }
+  public function getPlasticKeycardsDisinfected()
+  {
+    return $this->plasticKeycardsDisinfected;
+  }
+  public function setPlasticKeycardsDisinfectedException($plasticKeycardsDisinfectedException)
+  {
+    $this->plasticKeycardsDisinfectedException = $plasticKeycardsDisinfectedException;
+  }
+  public function getPlasticKeycardsDisinfectedException()
+  {
+    return $this->plasticKeycardsDisinfectedException;
+  }
+  public function setRoomBookingsBuffer($roomBookingsBuffer)
+  {
+    $this->roomBookingsBuffer = $roomBookingsBuffer;
+  }
+  public function getRoomBookingsBuffer()
+  {
+    return $this->roomBookingsBuffer;
+  }
+  public function setRoomBookingsBufferException($roomBookingsBufferException)
+  {
+    $this->roomBookingsBufferException = $roomBookingsBufferException;
+  }
+  public function getRoomBookingsBufferException()
+  {
+    return $this->roomBookingsBufferException;
+  }
+}
+
 class Google_Service_MyBusiness_Money extends Google_Model
 {
   protected $internal_gapi_mappings = array(
@@ -6419,6 +10155,398 @@ class Google_Service_MyBusiness_OrganizationInfo extends Google_Model
   }
 }
 
+class Google_Service_MyBusiness_Parking extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $electricCarChargingStations;
+  public $electricCarChargingStationsException;
+  public $freeParking;
+  public $freeParkingException;
+  public $freeSelfParking;
+  public $freeSelfParkingException;
+  public $freeValetParking;
+  public $freeValetParkingException;
+  public $parkingAvailable;
+  public $parkingAvailableException;
+  public $selfParkingAvailable;
+  public $selfParkingAvailableException;
+  public $valetParkingAvailable;
+  public $valetParkingAvailableException;
+
+
+  public function setElectricCarChargingStations($electricCarChargingStations)
+  {
+    $this->electricCarChargingStations = $electricCarChargingStations;
+  }
+  public function getElectricCarChargingStations()
+  {
+    return $this->electricCarChargingStations;
+  }
+  public function setElectricCarChargingStationsException($electricCarChargingStationsException)
+  {
+    $this->electricCarChargingStationsException = $electricCarChargingStationsException;
+  }
+  public function getElectricCarChargingStationsException()
+  {
+    return $this->electricCarChargingStationsException;
+  }
+  public function setFreeParking($freeParking)
+  {
+    $this->freeParking = $freeParking;
+  }
+  public function getFreeParking()
+  {
+    return $this->freeParking;
+  }
+  public function setFreeParkingException($freeParkingException)
+  {
+    $this->freeParkingException = $freeParkingException;
+  }
+  public function getFreeParkingException()
+  {
+    return $this->freeParkingException;
+  }
+  public function setFreeSelfParking($freeSelfParking)
+  {
+    $this->freeSelfParking = $freeSelfParking;
+  }
+  public function getFreeSelfParking()
+  {
+    return $this->freeSelfParking;
+  }
+  public function setFreeSelfParkingException($freeSelfParkingException)
+  {
+    $this->freeSelfParkingException = $freeSelfParkingException;
+  }
+  public function getFreeSelfParkingException()
+  {
+    return $this->freeSelfParkingException;
+  }
+  public function setFreeValetParking($freeValetParking)
+  {
+    $this->freeValetParking = $freeValetParking;
+  }
+  public function getFreeValetParking()
+  {
+    return $this->freeValetParking;
+  }
+  public function setFreeValetParkingException($freeValetParkingException)
+  {
+    $this->freeValetParkingException = $freeValetParkingException;
+  }
+  public function getFreeValetParkingException()
+  {
+    return $this->freeValetParkingException;
+  }
+  public function setParkingAvailable($parkingAvailable)
+  {
+    $this->parkingAvailable = $parkingAvailable;
+  }
+  public function getParkingAvailable()
+  {
+    return $this->parkingAvailable;
+  }
+  public function setParkingAvailableException($parkingAvailableException)
+  {
+    $this->parkingAvailableException = $parkingAvailableException;
+  }
+  public function getParkingAvailableException()
+  {
+    return $this->parkingAvailableException;
+  }
+  public function setSelfParkingAvailable($selfParkingAvailable)
+  {
+    $this->selfParkingAvailable = $selfParkingAvailable;
+  }
+  public function getSelfParkingAvailable()
+  {
+    return $this->selfParkingAvailable;
+  }
+  public function setSelfParkingAvailableException($selfParkingAvailableException)
+  {
+    $this->selfParkingAvailableException = $selfParkingAvailableException;
+  }
+  public function getSelfParkingAvailableException()
+  {
+    return $this->selfParkingAvailableException;
+  }
+  public function setValetParkingAvailable($valetParkingAvailable)
+  {
+    $this->valetParkingAvailable = $valetParkingAvailable;
+  }
+  public function getValetParkingAvailable()
+  {
+    return $this->valetParkingAvailable;
+  }
+  public function setValetParkingAvailableException($valetParkingAvailableException)
+  {
+    $this->valetParkingAvailableException = $valetParkingAvailableException;
+  }
+  public function getValetParkingAvailableException()
+  {
+    return $this->valetParkingAvailableException;
+  }
+}
+
+class Google_Service_MyBusiness_PaymentOptions extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $cash;
+  public $cashException;
+  public $cheque;
+  public $chequeException;
+  public $creditCard;
+  public $creditCardException;
+  public $debitCard;
+  public $debitCardException;
+  public $mobileNfc;
+  public $mobileNfcException;
+
+
+  public function setCash($cash)
+  {
+    $this->cash = $cash;
+  }
+  public function getCash()
+  {
+    return $this->cash;
+  }
+  public function setCashException($cashException)
+  {
+    $this->cashException = $cashException;
+  }
+  public function getCashException()
+  {
+    return $this->cashException;
+  }
+  public function setCheque($cheque)
+  {
+    $this->cheque = $cheque;
+  }
+  public function getCheque()
+  {
+    return $this->cheque;
+  }
+  public function setChequeException($chequeException)
+  {
+    $this->chequeException = $chequeException;
+  }
+  public function getChequeException()
+  {
+    return $this->chequeException;
+  }
+  public function setCreditCard($creditCard)
+  {
+    $this->creditCard = $creditCard;
+  }
+  public function getCreditCard()
+  {
+    return $this->creditCard;
+  }
+  public function setCreditCardException($creditCardException)
+  {
+    $this->creditCardException = $creditCardException;
+  }
+  public function getCreditCardException()
+  {
+    return $this->creditCardException;
+  }
+  public function setDebitCard($debitCard)
+  {
+    $this->debitCard = $debitCard;
+  }
+  public function getDebitCard()
+  {
+    return $this->debitCard;
+  }
+  public function setDebitCardException($debitCardException)
+  {
+    $this->debitCardException = $debitCardException;
+  }
+  public function getDebitCardException()
+  {
+    return $this->debitCardException;
+  }
+  public function setMobileNfc($mobileNfc)
+  {
+    $this->mobileNfc = $mobileNfc;
+  }
+  public function getMobileNfc()
+  {
+    return $this->mobileNfc;
+  }
+  public function setMobileNfcException($mobileNfcException)
+  {
+    $this->mobileNfcException = $mobileNfcException;
+  }
+  public function getMobileNfcException()
+  {
+    return $this->mobileNfcException;
+  }
+}
+
+class Google_Service_MyBusiness_PersonalProtection extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $commonAreasOfferSanitizingItems;
+  public $commonAreasOfferSanitizingItemsException;
+  public $faceMaskRequired;
+  public $faceMaskRequiredException;
+  public $guestRoomHygieneKitsAvailable;
+  public $guestRoomHygieneKitsAvailableException;
+  public $protectiveEquipmentAvailable;
+  public $protectiveEquipmentAvailableException;
+
+
+  public function setCommonAreasOfferSanitizingItems($commonAreasOfferSanitizingItems)
+  {
+    $this->commonAreasOfferSanitizingItems = $commonAreasOfferSanitizingItems;
+  }
+  public function getCommonAreasOfferSanitizingItems()
+  {
+    return $this->commonAreasOfferSanitizingItems;
+  }
+  public function setCommonAreasOfferSanitizingItemsException($commonAreasOfferSanitizingItemsException)
+  {
+    $this->commonAreasOfferSanitizingItemsException = $commonAreasOfferSanitizingItemsException;
+  }
+  public function getCommonAreasOfferSanitizingItemsException()
+  {
+    return $this->commonAreasOfferSanitizingItemsException;
+  }
+  public function setFaceMaskRequired($faceMaskRequired)
+  {
+    $this->faceMaskRequired = $faceMaskRequired;
+  }
+  public function getFaceMaskRequired()
+  {
+    return $this->faceMaskRequired;
+  }
+  public function setFaceMaskRequiredException($faceMaskRequiredException)
+  {
+    $this->faceMaskRequiredException = $faceMaskRequiredException;
+  }
+  public function getFaceMaskRequiredException()
+  {
+    return $this->faceMaskRequiredException;
+  }
+  public function setGuestRoomHygieneKitsAvailable($guestRoomHygieneKitsAvailable)
+  {
+    $this->guestRoomHygieneKitsAvailable = $guestRoomHygieneKitsAvailable;
+  }
+  public function getGuestRoomHygieneKitsAvailable()
+  {
+    return $this->guestRoomHygieneKitsAvailable;
+  }
+  public function setGuestRoomHygieneKitsAvailableException($guestRoomHygieneKitsAvailableException)
+  {
+    $this->guestRoomHygieneKitsAvailableException = $guestRoomHygieneKitsAvailableException;
+  }
+  public function getGuestRoomHygieneKitsAvailableException()
+  {
+    return $this->guestRoomHygieneKitsAvailableException;
+  }
+  public function setProtectiveEquipmentAvailable($protectiveEquipmentAvailable)
+  {
+    $this->protectiveEquipmentAvailable = $protectiveEquipmentAvailable;
+  }
+  public function getProtectiveEquipmentAvailable()
+  {
+    return $this->protectiveEquipmentAvailable;
+  }
+  public function setProtectiveEquipmentAvailableException($protectiveEquipmentAvailableException)
+  {
+    $this->protectiveEquipmentAvailableException = $protectiveEquipmentAvailableException;
+  }
+  public function getProtectiveEquipmentAvailableException()
+  {
+    return $this->protectiveEquipmentAvailableException;
+  }
+}
+
+class Google_Service_MyBusiness_Pets extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $catsAllowed;
+  public $catsAllowedException;
+  public $dogsAllowed;
+  public $dogsAllowedException;
+  public $petsAllowed;
+  public $petsAllowedException;
+  public $petsAllowedFree;
+  public $petsAllowedFreeException;
+
+
+  public function setCatsAllowed($catsAllowed)
+  {
+    $this->catsAllowed = $catsAllowed;
+  }
+  public function getCatsAllowed()
+  {
+    return $this->catsAllowed;
+  }
+  public function setCatsAllowedException($catsAllowedException)
+  {
+    $this->catsAllowedException = $catsAllowedException;
+  }
+  public function getCatsAllowedException()
+  {
+    return $this->catsAllowedException;
+  }
+  public function setDogsAllowed($dogsAllowed)
+  {
+    $this->dogsAllowed = $dogsAllowed;
+  }
+  public function getDogsAllowed()
+  {
+    return $this->dogsAllowed;
+  }
+  public function setDogsAllowedException($dogsAllowedException)
+  {
+    $this->dogsAllowedException = $dogsAllowedException;
+  }
+  public function getDogsAllowedException()
+  {
+    return $this->dogsAllowedException;
+  }
+  public function setPetsAllowed($petsAllowed)
+  {
+    $this->petsAllowed = $petsAllowed;
+  }
+  public function getPetsAllowed()
+  {
+    return $this->petsAllowed;
+  }
+  public function setPetsAllowedException($petsAllowedException)
+  {
+    $this->petsAllowedException = $petsAllowedException;
+  }
+  public function getPetsAllowedException()
+  {
+    return $this->petsAllowedException;
+  }
+  public function setPetsAllowedFree($petsAllowedFree)
+  {
+    $this->petsAllowedFree = $petsAllowedFree;
+  }
+  public function getPetsAllowedFree()
+  {
+    return $this->petsAllowedFree;
+  }
+  public function setPetsAllowedFreeException($petsAllowedFreeException)
+  {
+    $this->petsAllowedFreeException = $petsAllowedFreeException;
+  }
+  public function getPetsAllowedFreeException()
+  {
+    return $this->petsAllowedFreeException;
+  }
+}
+
 class Google_Service_MyBusiness_PhoneInput extends Google_Model
 {
   protected $internal_gapi_mappings = array(
@@ -6450,6 +10578,104 @@ class Google_Service_MyBusiness_PhoneVerificationData extends Google_Model
   public function getPhoneNumber()
   {
     return $this->phoneNumber;
+  }
+}
+
+class Google_Service_MyBusiness_PhysicalDistancing extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $commonAreasPhysicalDistancingArranged;
+  public $commonAreasPhysicalDistancingArrangedException;
+  public $physicalDistancingRequired;
+  public $physicalDistancingRequiredException;
+  public $safetyDividers;
+  public $safetyDividersException;
+  public $sharedAreasLimitedOccupancy;
+  public $sharedAreasLimitedOccupancyException;
+  public $wellnessAreasHavePrivateSpaces;
+  public $wellnessAreasHavePrivateSpacesException;
+
+
+  public function setCommonAreasPhysicalDistancingArranged($commonAreasPhysicalDistancingArranged)
+  {
+    $this->commonAreasPhysicalDistancingArranged = $commonAreasPhysicalDistancingArranged;
+  }
+  public function getCommonAreasPhysicalDistancingArranged()
+  {
+    return $this->commonAreasPhysicalDistancingArranged;
+  }
+  public function setCommonAreasPhysicalDistancingArrangedException($commonAreasPhysicalDistancingArrangedException)
+  {
+    $this->commonAreasPhysicalDistancingArrangedException = $commonAreasPhysicalDistancingArrangedException;
+  }
+  public function getCommonAreasPhysicalDistancingArrangedException()
+  {
+    return $this->commonAreasPhysicalDistancingArrangedException;
+  }
+  public function setPhysicalDistancingRequired($physicalDistancingRequired)
+  {
+    $this->physicalDistancingRequired = $physicalDistancingRequired;
+  }
+  public function getPhysicalDistancingRequired()
+  {
+    return $this->physicalDistancingRequired;
+  }
+  public function setPhysicalDistancingRequiredException($physicalDistancingRequiredException)
+  {
+    $this->physicalDistancingRequiredException = $physicalDistancingRequiredException;
+  }
+  public function getPhysicalDistancingRequiredException()
+  {
+    return $this->physicalDistancingRequiredException;
+  }
+  public function setSafetyDividers($safetyDividers)
+  {
+    $this->safetyDividers = $safetyDividers;
+  }
+  public function getSafetyDividers()
+  {
+    return $this->safetyDividers;
+  }
+  public function setSafetyDividersException($safetyDividersException)
+  {
+    $this->safetyDividersException = $safetyDividersException;
+  }
+  public function getSafetyDividersException()
+  {
+    return $this->safetyDividersException;
+  }
+  public function setSharedAreasLimitedOccupancy($sharedAreasLimitedOccupancy)
+  {
+    $this->sharedAreasLimitedOccupancy = $sharedAreasLimitedOccupancy;
+  }
+  public function getSharedAreasLimitedOccupancy()
+  {
+    return $this->sharedAreasLimitedOccupancy;
+  }
+  public function setSharedAreasLimitedOccupancyException($sharedAreasLimitedOccupancyException)
+  {
+    $this->sharedAreasLimitedOccupancyException = $sharedAreasLimitedOccupancyException;
+  }
+  public function getSharedAreasLimitedOccupancyException()
+  {
+    return $this->sharedAreasLimitedOccupancyException;
+  }
+  public function setWellnessAreasHavePrivateSpaces($wellnessAreasHavePrivateSpaces)
+  {
+    $this->wellnessAreasHavePrivateSpaces = $wellnessAreasHavePrivateSpaces;
+  }
+  public function getWellnessAreasHavePrivateSpaces()
+  {
+    return $this->wellnessAreasHavePrivateSpaces;
+  }
+  public function setWellnessAreasHavePrivateSpacesException($wellnessAreasHavePrivateSpacesException)
+  {
+    $this->wellnessAreasHavePrivateSpacesException = $wellnessAreasHavePrivateSpacesException;
+  }
+  public function getWellnessAreasHavePrivateSpacesException()
+  {
+    return $this->wellnessAreasHavePrivateSpacesException;
   }
 }
 
@@ -6522,6 +10748,430 @@ class Google_Service_MyBusiness_PointRadius extends Google_Model
   public function getRadiusKm()
   {
     return $this->radiusKm;
+  }
+}
+
+class Google_Service_MyBusiness_Policies extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $allInclusiveAvailable;
+  public $allInclusiveAvailableException;
+  public $allInclusiveOnly;
+  public $allInclusiveOnlyException;
+  protected $checkinTimeType = 'Google_Service_MyBusiness_TimeOfDay';
+  protected $checkinTimeDataType = '';
+  public $checkinTimeException;
+  protected $checkoutTimeType = 'Google_Service_MyBusiness_TimeOfDay';
+  protected $checkoutTimeDataType = '';
+  public $checkoutTimeException;
+  public $kidsStayFree;
+  public $kidsStayFreeException;
+  public $maxChildAge;
+  public $maxChildAgeException;
+  public $maxKidsStayFreeCount;
+  public $maxKidsStayFreeCountException;
+  protected $paymentOptionsType = 'Google_Service_MyBusiness_PaymentOptions';
+  protected $paymentOptionsDataType = '';
+  public $smokeFreeProperty;
+  public $smokeFreePropertyException;
+
+
+  public function setAllInclusiveAvailable($allInclusiveAvailable)
+  {
+    $this->allInclusiveAvailable = $allInclusiveAvailable;
+  }
+  public function getAllInclusiveAvailable()
+  {
+    return $this->allInclusiveAvailable;
+  }
+  public function setAllInclusiveAvailableException($allInclusiveAvailableException)
+  {
+    $this->allInclusiveAvailableException = $allInclusiveAvailableException;
+  }
+  public function getAllInclusiveAvailableException()
+  {
+    return $this->allInclusiveAvailableException;
+  }
+  public function setAllInclusiveOnly($allInclusiveOnly)
+  {
+    $this->allInclusiveOnly = $allInclusiveOnly;
+  }
+  public function getAllInclusiveOnly()
+  {
+    return $this->allInclusiveOnly;
+  }
+  public function setAllInclusiveOnlyException($allInclusiveOnlyException)
+  {
+    $this->allInclusiveOnlyException = $allInclusiveOnlyException;
+  }
+  public function getAllInclusiveOnlyException()
+  {
+    return $this->allInclusiveOnlyException;
+  }
+  public function setCheckinTime(Google_Service_MyBusiness_TimeOfDay $checkinTime)
+  {
+    $this->checkinTime = $checkinTime;
+  }
+  public function getCheckinTime()
+  {
+    return $this->checkinTime;
+  }
+  public function setCheckinTimeException($checkinTimeException)
+  {
+    $this->checkinTimeException = $checkinTimeException;
+  }
+  public function getCheckinTimeException()
+  {
+    return $this->checkinTimeException;
+  }
+  public function setCheckoutTime(Google_Service_MyBusiness_TimeOfDay $checkoutTime)
+  {
+    $this->checkoutTime = $checkoutTime;
+  }
+  public function getCheckoutTime()
+  {
+    return $this->checkoutTime;
+  }
+  public function setCheckoutTimeException($checkoutTimeException)
+  {
+    $this->checkoutTimeException = $checkoutTimeException;
+  }
+  public function getCheckoutTimeException()
+  {
+    return $this->checkoutTimeException;
+  }
+  public function setKidsStayFree($kidsStayFree)
+  {
+    $this->kidsStayFree = $kidsStayFree;
+  }
+  public function getKidsStayFree()
+  {
+    return $this->kidsStayFree;
+  }
+  public function setKidsStayFreeException($kidsStayFreeException)
+  {
+    $this->kidsStayFreeException = $kidsStayFreeException;
+  }
+  public function getKidsStayFreeException()
+  {
+    return $this->kidsStayFreeException;
+  }
+  public function setMaxChildAge($maxChildAge)
+  {
+    $this->maxChildAge = $maxChildAge;
+  }
+  public function getMaxChildAge()
+  {
+    return $this->maxChildAge;
+  }
+  public function setMaxChildAgeException($maxChildAgeException)
+  {
+    $this->maxChildAgeException = $maxChildAgeException;
+  }
+  public function getMaxChildAgeException()
+  {
+    return $this->maxChildAgeException;
+  }
+  public function setMaxKidsStayFreeCount($maxKidsStayFreeCount)
+  {
+    $this->maxKidsStayFreeCount = $maxKidsStayFreeCount;
+  }
+  public function getMaxKidsStayFreeCount()
+  {
+    return $this->maxKidsStayFreeCount;
+  }
+  public function setMaxKidsStayFreeCountException($maxKidsStayFreeCountException)
+  {
+    $this->maxKidsStayFreeCountException = $maxKidsStayFreeCountException;
+  }
+  public function getMaxKidsStayFreeCountException()
+  {
+    return $this->maxKidsStayFreeCountException;
+  }
+  public function setPaymentOptions(Google_Service_MyBusiness_PaymentOptions $paymentOptions)
+  {
+    $this->paymentOptions = $paymentOptions;
+  }
+  public function getPaymentOptions()
+  {
+    return $this->paymentOptions;
+  }
+  public function setSmokeFreeProperty($smokeFreeProperty)
+  {
+    $this->smokeFreeProperty = $smokeFreeProperty;
+  }
+  public function getSmokeFreeProperty()
+  {
+    return $this->smokeFreeProperty;
+  }
+  public function setSmokeFreePropertyException($smokeFreePropertyException)
+  {
+    $this->smokeFreePropertyException = $smokeFreePropertyException;
+  }
+  public function getSmokeFreePropertyException()
+  {
+    return $this->smokeFreePropertyException;
+  }
+}
+
+class Google_Service_MyBusiness_Pools extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $adultPool;
+  public $adultPoolException;
+  public $hotTub;
+  public $hotTubException;
+  public $indoorPool;
+  public $indoorPoolException;
+  public $indoorPoolsCount;
+  public $indoorPoolsCountException;
+  public $lazyRiver;
+  public $lazyRiverException;
+  public $lifeguard;
+  public $lifeguardException;
+  public $outdoorPool;
+  public $outdoorPoolException;
+  public $outdoorPoolsCount;
+  public $outdoorPoolsCountException;
+  public $pool;
+  public $poolException;
+  public $poolsCount;
+  public $poolsCountException;
+  public $wadingPool;
+  public $wadingPoolException;
+  public $waterPark;
+  public $waterParkException;
+  public $waterslide;
+  public $waterslideException;
+  public $wavePool;
+  public $wavePoolException;
+
+
+  public function setAdultPool($adultPool)
+  {
+    $this->adultPool = $adultPool;
+  }
+  public function getAdultPool()
+  {
+    return $this->adultPool;
+  }
+  public function setAdultPoolException($adultPoolException)
+  {
+    $this->adultPoolException = $adultPoolException;
+  }
+  public function getAdultPoolException()
+  {
+    return $this->adultPoolException;
+  }
+  public function setHotTub($hotTub)
+  {
+    $this->hotTub = $hotTub;
+  }
+  public function getHotTub()
+  {
+    return $this->hotTub;
+  }
+  public function setHotTubException($hotTubException)
+  {
+    $this->hotTubException = $hotTubException;
+  }
+  public function getHotTubException()
+  {
+    return $this->hotTubException;
+  }
+  public function setIndoorPool($indoorPool)
+  {
+    $this->indoorPool = $indoorPool;
+  }
+  public function getIndoorPool()
+  {
+    return $this->indoorPool;
+  }
+  public function setIndoorPoolException($indoorPoolException)
+  {
+    $this->indoorPoolException = $indoorPoolException;
+  }
+  public function getIndoorPoolException()
+  {
+    return $this->indoorPoolException;
+  }
+  public function setIndoorPoolsCount($indoorPoolsCount)
+  {
+    $this->indoorPoolsCount = $indoorPoolsCount;
+  }
+  public function getIndoorPoolsCount()
+  {
+    return $this->indoorPoolsCount;
+  }
+  public function setIndoorPoolsCountException($indoorPoolsCountException)
+  {
+    $this->indoorPoolsCountException = $indoorPoolsCountException;
+  }
+  public function getIndoorPoolsCountException()
+  {
+    return $this->indoorPoolsCountException;
+  }
+  public function setLazyRiver($lazyRiver)
+  {
+    $this->lazyRiver = $lazyRiver;
+  }
+  public function getLazyRiver()
+  {
+    return $this->lazyRiver;
+  }
+  public function setLazyRiverException($lazyRiverException)
+  {
+    $this->lazyRiverException = $lazyRiverException;
+  }
+  public function getLazyRiverException()
+  {
+    return $this->lazyRiverException;
+  }
+  public function setLifeguard($lifeguard)
+  {
+    $this->lifeguard = $lifeguard;
+  }
+  public function getLifeguard()
+  {
+    return $this->lifeguard;
+  }
+  public function setLifeguardException($lifeguardException)
+  {
+    $this->lifeguardException = $lifeguardException;
+  }
+  public function getLifeguardException()
+  {
+    return $this->lifeguardException;
+  }
+  public function setOutdoorPool($outdoorPool)
+  {
+    $this->outdoorPool = $outdoorPool;
+  }
+  public function getOutdoorPool()
+  {
+    return $this->outdoorPool;
+  }
+  public function setOutdoorPoolException($outdoorPoolException)
+  {
+    $this->outdoorPoolException = $outdoorPoolException;
+  }
+  public function getOutdoorPoolException()
+  {
+    return $this->outdoorPoolException;
+  }
+  public function setOutdoorPoolsCount($outdoorPoolsCount)
+  {
+    $this->outdoorPoolsCount = $outdoorPoolsCount;
+  }
+  public function getOutdoorPoolsCount()
+  {
+    return $this->outdoorPoolsCount;
+  }
+  public function setOutdoorPoolsCountException($outdoorPoolsCountException)
+  {
+    $this->outdoorPoolsCountException = $outdoorPoolsCountException;
+  }
+  public function getOutdoorPoolsCountException()
+  {
+    return $this->outdoorPoolsCountException;
+  }
+  public function setPool($pool)
+  {
+    $this->pool = $pool;
+  }
+  public function getPool()
+  {
+    return $this->pool;
+  }
+  public function setPoolException($poolException)
+  {
+    $this->poolException = $poolException;
+  }
+  public function getPoolException()
+  {
+    return $this->poolException;
+  }
+  public function setPoolsCount($poolsCount)
+  {
+    $this->poolsCount = $poolsCount;
+  }
+  public function getPoolsCount()
+  {
+    return $this->poolsCount;
+  }
+  public function setPoolsCountException($poolsCountException)
+  {
+    $this->poolsCountException = $poolsCountException;
+  }
+  public function getPoolsCountException()
+  {
+    return $this->poolsCountException;
+  }
+  public function setWadingPool($wadingPool)
+  {
+    $this->wadingPool = $wadingPool;
+  }
+  public function getWadingPool()
+  {
+    return $this->wadingPool;
+  }
+  public function setWadingPoolException($wadingPoolException)
+  {
+    $this->wadingPoolException = $wadingPoolException;
+  }
+  public function getWadingPoolException()
+  {
+    return $this->wadingPoolException;
+  }
+  public function setWaterPark($waterPark)
+  {
+    $this->waterPark = $waterPark;
+  }
+  public function getWaterPark()
+  {
+    return $this->waterPark;
+  }
+  public function setWaterParkException($waterParkException)
+  {
+    $this->waterParkException = $waterParkException;
+  }
+  public function getWaterParkException()
+  {
+    return $this->waterParkException;
+  }
+  public function setWaterslide($waterslide)
+  {
+    $this->waterslide = $waterslide;
+  }
+  public function getWaterslide()
+  {
+    return $this->waterslide;
+  }
+  public function setWaterslideException($waterslideException)
+  {
+    $this->waterslideException = $waterslideException;
+  }
+  public function getWaterslideException()
+  {
+    return $this->waterslideException;
+  }
+  public function setWavePool($wavePool)
+  {
+    $this->wavePool = $wavePool;
+  }
+  public function getWavePool()
+  {
+    return $this->wavePool;
+  }
+  public function setWavePoolException($wavePoolException)
+  {
+    $this->wavePoolException = $wavePoolException;
+  }
+  public function getWavePoolException()
+  {
+    return $this->wavePoolException;
   }
 }
 
@@ -6722,6 +11372,86 @@ class Google_Service_MyBusiness_Profile extends Google_Model
   public function getDescription()
   {
     return $this->description;
+  }
+}
+
+class Google_Service_MyBusiness_Property extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $builtYear;
+  public $builtYearException;
+  public $floorsCount;
+  public $floorsCountException;
+  public $lastRenovatedYear;
+  public $lastRenovatedYearException;
+  public $roomsCount;
+  public $roomsCountException;
+
+
+  public function setBuiltYear($builtYear)
+  {
+    $this->builtYear = $builtYear;
+  }
+  public function getBuiltYear()
+  {
+    return $this->builtYear;
+  }
+  public function setBuiltYearException($builtYearException)
+  {
+    $this->builtYearException = $builtYearException;
+  }
+  public function getBuiltYearException()
+  {
+    return $this->builtYearException;
+  }
+  public function setFloorsCount($floorsCount)
+  {
+    $this->floorsCount = $floorsCount;
+  }
+  public function getFloorsCount()
+  {
+    return $this->floorsCount;
+  }
+  public function setFloorsCountException($floorsCountException)
+  {
+    $this->floorsCountException = $floorsCountException;
+  }
+  public function getFloorsCountException()
+  {
+    return $this->floorsCountException;
+  }
+  public function setLastRenovatedYear($lastRenovatedYear)
+  {
+    $this->lastRenovatedYear = $lastRenovatedYear;
+  }
+  public function getLastRenovatedYear()
+  {
+    return $this->lastRenovatedYear;
+  }
+  public function setLastRenovatedYearException($lastRenovatedYearException)
+  {
+    $this->lastRenovatedYearException = $lastRenovatedYearException;
+  }
+  public function getLastRenovatedYearException()
+  {
+    return $this->lastRenovatedYearException;
+  }
+  public function setRoomsCount($roomsCount)
+  {
+    $this->roomsCount = $roomsCount;
+  }
+  public function getRoomsCount()
+  {
+    return $this->roomsCount;
+  }
+  public function setRoomsCountException($roomsCountException)
+  {
+    $this->roomsCountException = $roomsCountException;
+  }
+  public function getRoomsCountException()
+  {
+    return $this->roomsCountException;
   }
 }
 
@@ -7493,6 +12223,240 @@ class Google_Service_MyBusiness_ServiceType extends Google_Model
   }
 }
 
+class Google_Service_MyBusiness_Services extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $baggageStorage;
+  public $baggageStorageException;
+  public $concierge;
+  public $conciergeException;
+  public $convenienceStore;
+  public $convenienceStoreException;
+  public $currencyExchange;
+  public $currencyExchangeException;
+  public $elevator;
+  public $elevatorException;
+  public $frontDesk;
+  public $frontDeskException;
+  public $fullServiceLaundry;
+  public $fullServiceLaundryException;
+  public $giftShop;
+  public $giftShopException;
+  protected $languagesSpokenType = 'Google_Service_MyBusiness_LanguagesSpoken';
+  protected $languagesSpokenDataType = '';
+  public $selfServiceLaundry;
+  public $selfServiceLaundryException;
+  public $socialHour;
+  public $socialHourException;
+  public $twentyFourHourFrontDesk;
+  public $twentyFourHourFrontDeskException;
+  public $wakeUpCalls;
+  public $wakeUpCallsException;
+
+
+  public function setBaggageStorage($baggageStorage)
+  {
+    $this->baggageStorage = $baggageStorage;
+  }
+  public function getBaggageStorage()
+  {
+    return $this->baggageStorage;
+  }
+  public function setBaggageStorageException($baggageStorageException)
+  {
+    $this->baggageStorageException = $baggageStorageException;
+  }
+  public function getBaggageStorageException()
+  {
+    return $this->baggageStorageException;
+  }
+  public function setConcierge($concierge)
+  {
+    $this->concierge = $concierge;
+  }
+  public function getConcierge()
+  {
+    return $this->concierge;
+  }
+  public function setConciergeException($conciergeException)
+  {
+    $this->conciergeException = $conciergeException;
+  }
+  public function getConciergeException()
+  {
+    return $this->conciergeException;
+  }
+  public function setConvenienceStore($convenienceStore)
+  {
+    $this->convenienceStore = $convenienceStore;
+  }
+  public function getConvenienceStore()
+  {
+    return $this->convenienceStore;
+  }
+  public function setConvenienceStoreException($convenienceStoreException)
+  {
+    $this->convenienceStoreException = $convenienceStoreException;
+  }
+  public function getConvenienceStoreException()
+  {
+    return $this->convenienceStoreException;
+  }
+  public function setCurrencyExchange($currencyExchange)
+  {
+    $this->currencyExchange = $currencyExchange;
+  }
+  public function getCurrencyExchange()
+  {
+    return $this->currencyExchange;
+  }
+  public function setCurrencyExchangeException($currencyExchangeException)
+  {
+    $this->currencyExchangeException = $currencyExchangeException;
+  }
+  public function getCurrencyExchangeException()
+  {
+    return $this->currencyExchangeException;
+  }
+  public function setElevator($elevator)
+  {
+    $this->elevator = $elevator;
+  }
+  public function getElevator()
+  {
+    return $this->elevator;
+  }
+  public function setElevatorException($elevatorException)
+  {
+    $this->elevatorException = $elevatorException;
+  }
+  public function getElevatorException()
+  {
+    return $this->elevatorException;
+  }
+  public function setFrontDesk($frontDesk)
+  {
+    $this->frontDesk = $frontDesk;
+  }
+  public function getFrontDesk()
+  {
+    return $this->frontDesk;
+  }
+  public function setFrontDeskException($frontDeskException)
+  {
+    $this->frontDeskException = $frontDeskException;
+  }
+  public function getFrontDeskException()
+  {
+    return $this->frontDeskException;
+  }
+  public function setFullServiceLaundry($fullServiceLaundry)
+  {
+    $this->fullServiceLaundry = $fullServiceLaundry;
+  }
+  public function getFullServiceLaundry()
+  {
+    return $this->fullServiceLaundry;
+  }
+  public function setFullServiceLaundryException($fullServiceLaundryException)
+  {
+    $this->fullServiceLaundryException = $fullServiceLaundryException;
+  }
+  public function getFullServiceLaundryException()
+  {
+    return $this->fullServiceLaundryException;
+  }
+  public function setGiftShop($giftShop)
+  {
+    $this->giftShop = $giftShop;
+  }
+  public function getGiftShop()
+  {
+    return $this->giftShop;
+  }
+  public function setGiftShopException($giftShopException)
+  {
+    $this->giftShopException = $giftShopException;
+  }
+  public function getGiftShopException()
+  {
+    return $this->giftShopException;
+  }
+  public function setLanguagesSpoken(Google_Service_MyBusiness_LanguagesSpoken $languagesSpoken)
+  {
+    $this->languagesSpoken = $languagesSpoken;
+  }
+  public function getLanguagesSpoken()
+  {
+    return $this->languagesSpoken;
+  }
+  public function setSelfServiceLaundry($selfServiceLaundry)
+  {
+    $this->selfServiceLaundry = $selfServiceLaundry;
+  }
+  public function getSelfServiceLaundry()
+  {
+    return $this->selfServiceLaundry;
+  }
+  public function setSelfServiceLaundryException($selfServiceLaundryException)
+  {
+    $this->selfServiceLaundryException = $selfServiceLaundryException;
+  }
+  public function getSelfServiceLaundryException()
+  {
+    return $this->selfServiceLaundryException;
+  }
+  public function setSocialHour($socialHour)
+  {
+    $this->socialHour = $socialHour;
+  }
+  public function getSocialHour()
+  {
+    return $this->socialHour;
+  }
+  public function setSocialHourException($socialHourException)
+  {
+    $this->socialHourException = $socialHourException;
+  }
+  public function getSocialHourException()
+  {
+    return $this->socialHourException;
+  }
+  public function setTwentyFourHourFrontDesk($twentyFourHourFrontDesk)
+  {
+    $this->twentyFourHourFrontDesk = $twentyFourHourFrontDesk;
+  }
+  public function getTwentyFourHourFrontDesk()
+  {
+    return $this->twentyFourHourFrontDesk;
+  }
+  public function setTwentyFourHourFrontDeskException($twentyFourHourFrontDeskException)
+  {
+    $this->twentyFourHourFrontDeskException = $twentyFourHourFrontDeskException;
+  }
+  public function getTwentyFourHourFrontDeskException()
+  {
+    return $this->twentyFourHourFrontDeskException;
+  }
+  public function setWakeUpCalls($wakeUpCalls)
+  {
+    $this->wakeUpCalls = $wakeUpCalls;
+  }
+  public function getWakeUpCalls()
+  {
+    return $this->wakeUpCalls;
+  }
+  public function setWakeUpCallsException($wakeUpCallsException)
+  {
+    $this->wakeUpCallsException = $wakeUpCallsException;
+  }
+  public function getWakeUpCallsException()
+  {
+    return $this->wakeUpCallsException;
+  }
+}
+
 class Google_Service_MyBusiness_SpecialHourPeriod extends Google_Model
 {
   protected $internal_gapi_mappings = array(
@@ -7867,6 +12831,140 @@ class Google_Service_MyBusiness_TransferLocationRequest extends Google_Model
   }
 }
 
+class Google_Service_MyBusiness_Transportation extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $airportShuttle;
+  public $airportShuttleException;
+  public $carRentalOnProperty;
+  public $carRentalOnPropertyException;
+  public $freeAirportShuttle;
+  public $freeAirportShuttleException;
+  public $freePrivateCarService;
+  public $freePrivateCarServiceException;
+  public $localShuttle;
+  public $localShuttleException;
+  public $privateCarService;
+  public $privateCarServiceException;
+  public $transfer;
+  public $transferException;
+
+
+  public function setAirportShuttle($airportShuttle)
+  {
+    $this->airportShuttle = $airportShuttle;
+  }
+  public function getAirportShuttle()
+  {
+    return $this->airportShuttle;
+  }
+  public function setAirportShuttleException($airportShuttleException)
+  {
+    $this->airportShuttleException = $airportShuttleException;
+  }
+  public function getAirportShuttleException()
+  {
+    return $this->airportShuttleException;
+  }
+  public function setCarRentalOnProperty($carRentalOnProperty)
+  {
+    $this->carRentalOnProperty = $carRentalOnProperty;
+  }
+  public function getCarRentalOnProperty()
+  {
+    return $this->carRentalOnProperty;
+  }
+  public function setCarRentalOnPropertyException($carRentalOnPropertyException)
+  {
+    $this->carRentalOnPropertyException = $carRentalOnPropertyException;
+  }
+  public function getCarRentalOnPropertyException()
+  {
+    return $this->carRentalOnPropertyException;
+  }
+  public function setFreeAirportShuttle($freeAirportShuttle)
+  {
+    $this->freeAirportShuttle = $freeAirportShuttle;
+  }
+  public function getFreeAirportShuttle()
+  {
+    return $this->freeAirportShuttle;
+  }
+  public function setFreeAirportShuttleException($freeAirportShuttleException)
+  {
+    $this->freeAirportShuttleException = $freeAirportShuttleException;
+  }
+  public function getFreeAirportShuttleException()
+  {
+    return $this->freeAirportShuttleException;
+  }
+  public function setFreePrivateCarService($freePrivateCarService)
+  {
+    $this->freePrivateCarService = $freePrivateCarService;
+  }
+  public function getFreePrivateCarService()
+  {
+    return $this->freePrivateCarService;
+  }
+  public function setFreePrivateCarServiceException($freePrivateCarServiceException)
+  {
+    $this->freePrivateCarServiceException = $freePrivateCarServiceException;
+  }
+  public function getFreePrivateCarServiceException()
+  {
+    return $this->freePrivateCarServiceException;
+  }
+  public function setLocalShuttle($localShuttle)
+  {
+    $this->localShuttle = $localShuttle;
+  }
+  public function getLocalShuttle()
+  {
+    return $this->localShuttle;
+  }
+  public function setLocalShuttleException($localShuttleException)
+  {
+    $this->localShuttleException = $localShuttleException;
+  }
+  public function getLocalShuttleException()
+  {
+    return $this->localShuttleException;
+  }
+  public function setPrivateCarService($privateCarService)
+  {
+    $this->privateCarService = $privateCarService;
+  }
+  public function getPrivateCarService()
+  {
+    return $this->privateCarService;
+  }
+  public function setPrivateCarServiceException($privateCarServiceException)
+  {
+    $this->privateCarServiceException = $privateCarServiceException;
+  }
+  public function getPrivateCarServiceException()
+  {
+    return $this->privateCarServiceException;
+  }
+  public function setTransfer($transfer)
+  {
+    $this->transfer = $transfer;
+  }
+  public function getTransfer()
+  {
+    return $this->transfer;
+  }
+  public function setTransferException($transferException)
+  {
+    $this->transferException = $transferException;
+  }
+  public function getTransferException()
+  {
+    return $this->transferException;
+  }
+}
+
 class Google_Service_MyBusiness_UpsertAnswerRequest extends Google_Model
 {
   protected $internal_gapi_mappings = array(
@@ -8074,5 +13172,363 @@ class Google_Service_MyBusiness_VerifyLocationResponse extends Google_Model
   public function getVerification()
   {
     return $this->verification;
+  }
+}
+
+class Google_Service_MyBusiness_ViewsFromUnit extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $beachView;
+  public $beachViewException;
+  public $cityView;
+  public $cityViewException;
+  public $gardenView;
+  public $gardenViewException;
+  public $lakeView;
+  public $lakeViewException;
+  public $landmarkView;
+  public $landmarkViewException;
+  public $oceanView;
+  public $oceanViewException;
+  public $poolView;
+  public $poolViewException;
+  public $valleyView;
+  public $valleyViewException;
+
+
+  public function setBeachView($beachView)
+  {
+    $this->beachView = $beachView;
+  }
+  public function getBeachView()
+  {
+    return $this->beachView;
+  }
+  public function setBeachViewException($beachViewException)
+  {
+    $this->beachViewException = $beachViewException;
+  }
+  public function getBeachViewException()
+  {
+    return $this->beachViewException;
+  }
+  public function setCityView($cityView)
+  {
+    $this->cityView = $cityView;
+  }
+  public function getCityView()
+  {
+    return $this->cityView;
+  }
+  public function setCityViewException($cityViewException)
+  {
+    $this->cityViewException = $cityViewException;
+  }
+  public function getCityViewException()
+  {
+    return $this->cityViewException;
+  }
+  public function setGardenView($gardenView)
+  {
+    $this->gardenView = $gardenView;
+  }
+  public function getGardenView()
+  {
+    return $this->gardenView;
+  }
+  public function setGardenViewException($gardenViewException)
+  {
+    $this->gardenViewException = $gardenViewException;
+  }
+  public function getGardenViewException()
+  {
+    return $this->gardenViewException;
+  }
+  public function setLakeView($lakeView)
+  {
+    $this->lakeView = $lakeView;
+  }
+  public function getLakeView()
+  {
+    return $this->lakeView;
+  }
+  public function setLakeViewException($lakeViewException)
+  {
+    $this->lakeViewException = $lakeViewException;
+  }
+  public function getLakeViewException()
+  {
+    return $this->lakeViewException;
+  }
+  public function setLandmarkView($landmarkView)
+  {
+    $this->landmarkView = $landmarkView;
+  }
+  public function getLandmarkView()
+  {
+    return $this->landmarkView;
+  }
+  public function setLandmarkViewException($landmarkViewException)
+  {
+    $this->landmarkViewException = $landmarkViewException;
+  }
+  public function getLandmarkViewException()
+  {
+    return $this->landmarkViewException;
+  }
+  public function setOceanView($oceanView)
+  {
+    $this->oceanView = $oceanView;
+  }
+  public function getOceanView()
+  {
+    return $this->oceanView;
+  }
+  public function setOceanViewException($oceanViewException)
+  {
+    $this->oceanViewException = $oceanViewException;
+  }
+  public function getOceanViewException()
+  {
+    return $this->oceanViewException;
+  }
+  public function setPoolView($poolView)
+  {
+    $this->poolView = $poolView;
+  }
+  public function getPoolView()
+  {
+    return $this->poolView;
+  }
+  public function setPoolViewException($poolViewException)
+  {
+    $this->poolViewException = $poolViewException;
+  }
+  public function getPoolViewException()
+  {
+    return $this->poolViewException;
+  }
+  public function setValleyView($valleyView)
+  {
+    $this->valleyView = $valleyView;
+  }
+  public function getValleyView()
+  {
+    return $this->valleyView;
+  }
+  public function setValleyViewException($valleyViewException)
+  {
+    $this->valleyViewException = $valleyViewException;
+  }
+  public function getValleyViewException()
+  {
+    return $this->valleyViewException;
+  }
+}
+
+class Google_Service_MyBusiness_Wellness extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $doctorOnCall;
+  public $doctorOnCallException;
+  public $ellipticalMachine;
+  public $ellipticalMachineException;
+  public $fitnessCenter;
+  public $fitnessCenterException;
+  public $freeFitnessCenter;
+  public $freeFitnessCenterException;
+  public $freeWeights;
+  public $freeWeightsException;
+  public $massage;
+  public $massageException;
+  public $salon;
+  public $salonException;
+  public $sauna;
+  public $saunaException;
+  public $spa;
+  public $spaException;
+  public $treadmill;
+  public $treadmillException;
+  public $weightMachine;
+  public $weightMachineException;
+
+
+  public function setDoctorOnCall($doctorOnCall)
+  {
+    $this->doctorOnCall = $doctorOnCall;
+  }
+  public function getDoctorOnCall()
+  {
+    return $this->doctorOnCall;
+  }
+  public function setDoctorOnCallException($doctorOnCallException)
+  {
+    $this->doctorOnCallException = $doctorOnCallException;
+  }
+  public function getDoctorOnCallException()
+  {
+    return $this->doctorOnCallException;
+  }
+  public function setEllipticalMachine($ellipticalMachine)
+  {
+    $this->ellipticalMachine = $ellipticalMachine;
+  }
+  public function getEllipticalMachine()
+  {
+    return $this->ellipticalMachine;
+  }
+  public function setEllipticalMachineException($ellipticalMachineException)
+  {
+    $this->ellipticalMachineException = $ellipticalMachineException;
+  }
+  public function getEllipticalMachineException()
+  {
+    return $this->ellipticalMachineException;
+  }
+  public function setFitnessCenter($fitnessCenter)
+  {
+    $this->fitnessCenter = $fitnessCenter;
+  }
+  public function getFitnessCenter()
+  {
+    return $this->fitnessCenter;
+  }
+  public function setFitnessCenterException($fitnessCenterException)
+  {
+    $this->fitnessCenterException = $fitnessCenterException;
+  }
+  public function getFitnessCenterException()
+  {
+    return $this->fitnessCenterException;
+  }
+  public function setFreeFitnessCenter($freeFitnessCenter)
+  {
+    $this->freeFitnessCenter = $freeFitnessCenter;
+  }
+  public function getFreeFitnessCenter()
+  {
+    return $this->freeFitnessCenter;
+  }
+  public function setFreeFitnessCenterException($freeFitnessCenterException)
+  {
+    $this->freeFitnessCenterException = $freeFitnessCenterException;
+  }
+  public function getFreeFitnessCenterException()
+  {
+    return $this->freeFitnessCenterException;
+  }
+  public function setFreeWeights($freeWeights)
+  {
+    $this->freeWeights = $freeWeights;
+  }
+  public function getFreeWeights()
+  {
+    return $this->freeWeights;
+  }
+  public function setFreeWeightsException($freeWeightsException)
+  {
+    $this->freeWeightsException = $freeWeightsException;
+  }
+  public function getFreeWeightsException()
+  {
+    return $this->freeWeightsException;
+  }
+  public function setMassage($massage)
+  {
+    $this->massage = $massage;
+  }
+  public function getMassage()
+  {
+    return $this->massage;
+  }
+  public function setMassageException($massageException)
+  {
+    $this->massageException = $massageException;
+  }
+  public function getMassageException()
+  {
+    return $this->massageException;
+  }
+  public function setSalon($salon)
+  {
+    $this->salon = $salon;
+  }
+  public function getSalon()
+  {
+    return $this->salon;
+  }
+  public function setSalonException($salonException)
+  {
+    $this->salonException = $salonException;
+  }
+  public function getSalonException()
+  {
+    return $this->salonException;
+  }
+  public function setSauna($sauna)
+  {
+    $this->sauna = $sauna;
+  }
+  public function getSauna()
+  {
+    return $this->sauna;
+  }
+  public function setSaunaException($saunaException)
+  {
+    $this->saunaException = $saunaException;
+  }
+  public function getSaunaException()
+  {
+    return $this->saunaException;
+  }
+  public function setSpa($spa)
+  {
+    $this->spa = $spa;
+  }
+  public function getSpa()
+  {
+    return $this->spa;
+  }
+  public function setSpaException($spaException)
+  {
+    $this->spaException = $spaException;
+  }
+  public function getSpaException()
+  {
+    return $this->spaException;
+  }
+  public function setTreadmill($treadmill)
+  {
+    $this->treadmill = $treadmill;
+  }
+  public function getTreadmill()
+  {
+    return $this->treadmill;
+  }
+  public function setTreadmillException($treadmillException)
+  {
+    $this->treadmillException = $treadmillException;
+  }
+  public function getTreadmillException()
+  {
+    return $this->treadmillException;
+  }
+  public function setWeightMachine($weightMachine)
+  {
+    $this->weightMachine = $weightMachine;
+  }
+  public function getWeightMachine()
+  {
+    return $this->weightMachine;
+  }
+  public function setWeightMachineException($weightMachineException)
+  {
+    $this->weightMachineException = $weightMachineException;
+  }
+  public function getWeightMachineException()
+  {
+    return $this->weightMachineException;
   }
 }
