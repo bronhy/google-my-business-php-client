@@ -10,12 +10,20 @@ You are welcome to contribute and ask for maintenance rights.
 Google API PHP Client
 URL: https://github.com/google/google-api-php-client/releases
 
-
 ## How to install 
 
 The easiest way to install is with composer.
 
 `composer require bronhy/google-my-business-php-client`
+
+## Semantic Versioning
+
+Do notice that google is not following semantic versioning [rfc] https://semver.org/ with this library. 
+Since this package reflects the google versioning make sure that you lock to your version.
+
+```
+ie. composer require bronhy/google-my-business-php-client:4.8
+```
 
 ## Detailed error responses
 
