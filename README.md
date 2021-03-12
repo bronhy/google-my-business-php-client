@@ -18,7 +18,7 @@ The easiest way to install is with composer.
 
 ## Semantic Versioning
 
-Do notice that google is not following semantic versioning [rfc] https://semver.org/ with this library. 
+Do notice that google is not following semantic versioning RFC https://semver.org/ with this library. 
 Since this package reflects the google versioning make sure that you lock to your version.
 
 ```
@@ -30,7 +30,7 @@ ie. composer require bronhy/google-my-business-php-client:4.8
 # config/services.yaml
 
 parameters:
-    app.google_credentials: '%env(json:base64:GOOGLE_CREDENTIALS)%'
+    app.google_credentials: '%env(json:base64:GOOGLE_CREDENTIALS)%' # exported json base64 encoded
     app.client_scope: 'https://www.googleapis.com/auth/plus.business.manage'
     app.redirect_url: '%env(GMB_REDIRECT_URI)%'
 
