@@ -4273,6 +4273,8 @@ class Google_Service_MyBusiness_Category extends Google_Collection
   );
   public $categoryId;
   public $displayName;
+  protected $moreHoursTypesType = 'Google_Service_MyBusiness_MoreHoursType';
+  protected $moreHoursTypesDataType = 'array';
   protected $serviceTypesType = 'Google_Service_MyBusiness_ServiceType';
   protected $serviceTypesDataType = 'array';
 
@@ -4292,6 +4294,14 @@ class Google_Service_MyBusiness_Category extends Google_Collection
   public function getDisplayName()
   {
     return $this->displayName;
+  }
+  public function setMoreHoursTypes($moreHoursTypes)
+  {
+    $this->moreHoursTypes = $moreHoursTypes;
+  }
+  public function getMoreHoursTypes()
+  {
+    return $this->moreHoursTypes;
   }
   public function setServiceTypes($serviceTypes)
   {
@@ -8651,6 +8661,8 @@ class Google_Service_MyBusiness_Location extends Google_Collection
   protected $locationStateDataType = '';
   protected $metadataType = 'Google_Service_MyBusiness_Metadata';
   protected $metadataDataType = '';
+  protected $moreHoursType = 'Google_Service_MyBusiness_MoreHours';
+  protected $moreHoursDataType = 'array';
   public $name;
   protected $openInfoType = 'Google_Service_MyBusiness_OpenInfo';
   protected $openInfoDataType = '';
@@ -8768,6 +8780,14 @@ class Google_Service_MyBusiness_Location extends Google_Collection
   public function getMetadata()
   {
     return $this->metadata;
+  }
+  public function setMoreHours($moreHours)
+  {
+    $this->moreHours = $moreHours;
+  }
+  public function getMoreHours()
+  {
+    return $this->moreHours;
   }
   public function setName($name)
   {
@@ -9937,6 +9957,69 @@ class Google_Service_MyBusiness_Money extends Google_Model
   public function getUnits()
   {
     return $this->units;
+  }
+}
+
+class Google_Service_MyBusiness_MoreHours extends Google_Collection
+{
+  protected $collection_key = 'periods';
+  protected $internal_gapi_mappings = array(
+  );
+  public $hoursTypeId;
+  protected $periodsType = 'Google_Service_MyBusiness_TimePeriod';
+  protected $periodsDataType = 'array';
+
+
+  public function setHoursTypeId($hoursTypeId)
+  {
+    $this->hoursTypeId = $hoursTypeId;
+  }
+  public function getHoursTypeId()
+  {
+    return $this->hoursTypeId;
+  }
+  public function setPeriods($periods)
+  {
+    $this->periods = $periods;
+  }
+  public function getPeriods()
+  {
+    return $this->periods;
+  }
+}
+
+class Google_Service_MyBusiness_MoreHoursType extends Google_Model
+{
+  protected $internal_gapi_mappings = array(
+  );
+  public $displayName;
+  public $hoursTypeId;
+  public $localizedDisplayName;
+
+
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  public function getDisplayName()
+  {
+    return $this->displayName;
+  }
+  public function setHoursTypeId($hoursTypeId)
+  {
+    $this->hoursTypeId = $hoursTypeId;
+  }
+  public function getHoursTypeId()
+  {
+    return $this->hoursTypeId;
+  }
+  public function setLocalizedDisplayName($localizedDisplayName)
+  {
+    $this->localizedDisplayName = $localizedDisplayName;
+  }
+  public function getLocalizedDisplayName()
+  {
+    return $this->localizedDisplayName;
   }
 }
 
