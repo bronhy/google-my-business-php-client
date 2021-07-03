@@ -1,5 +1,5 @@
 # PHP Client library for Google My Business
-The Google My Business API client libraries wrap the functionality of the Google My Business API, and provide functionality common to all Google APIs, for example HTTP transport, error handling, authentication, JSON parsing, and support for protocol buffers.
+The Google My Business API client libraries wraps the functionality of the Google My Business API, and provide functionality common to all Google APIs, for example HTTP transport, error handling, authentication, JSON parsing, and support for protocol buffers.
 
 This package contains the Service definition for MyBusiness and it depends on Google API PHP Client
 
