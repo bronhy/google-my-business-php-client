@@ -389,7 +389,7 @@ class Google_Service_MyBusiness extends Google_Service
                 ),
               ),
             ),'getFoodMenus' => array(
-              'path' => 'v4/{+name}',
+              'path' => 'v4/{+name}/foodMenus',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'name' => array(
@@ -413,7 +413,7 @@ class Google_Service_MyBusiness extends Google_Service
                 ),
               ),
             ),'getHealthProviderAttributes' => array(
-              'path' => 'v4/{+name}',
+              'path' => 'v4/{+name}/healthProviderAttributes',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'name' => array(
@@ -441,7 +441,7 @@ class Google_Service_MyBusiness extends Google_Service
                 ),
               ),
             ),'getServiceList' => array(
-              'path' => 'v4/{+name}',
+              'path' => 'v4/{+name}/serviceList',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'name' => array(
@@ -523,7 +523,7 @@ class Google_Service_MyBusiness extends Google_Service
                 ),
               ),
             ),'updateFoodMenus' => array(
-              'path' => 'v4/{+name}',
+              'path' => 'v4/{+name}/foodMenus',
               'httpMethod' => 'PATCH',
               'parameters' => array(
                 'name' => array(
@@ -537,7 +537,7 @@ class Google_Service_MyBusiness extends Google_Service
                 ),
               ),
             ),'updateHealthProviderAttributes' => array(
-              'path' => 'v4/{+name}',
+              'path' => 'v4/{+name}/healthProviderAttributes',
               'httpMethod' => 'PATCH',
               'parameters' => array(
                 'name' => array(
@@ -565,7 +565,7 @@ class Google_Service_MyBusiness extends Google_Service
                 ),
               ),
             ),'updateServiceList' => array(
-              'path' => 'v4/{+name}',
+              'path' => 'v4/{+name}/serviceList',
               'httpMethod' => 'PATCH',
               'parameters' => array(
                 'name' => array(
