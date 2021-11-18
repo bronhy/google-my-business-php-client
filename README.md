@@ -6,7 +6,7 @@ This package contains the Service definition for MyBusiness and it depends on Go
 You are welcome to contribute and ask for maintenance rights.
 
 # BIG NOTICE
-Google is updating My Business API and exposing the new Service definition in this library.
+Google is updating My Business API and exposing the new Service definitions in this library.
 https://github.com/googleapis/google-api-php-client-services. After the udpate is compleate this repository will be makred as DEPRECATED.
 
 ## Requirements:
